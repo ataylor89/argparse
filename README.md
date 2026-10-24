@@ -80,7 +80,7 @@ Generics is a subject in Java... a method can take a generic argument or return 
 
 I also learned about class literals.
 
-I also learned new things about the Java standard (built-in library).
+I also learned new things about the Java standard (built-in) library.
 
 So you see, learning new things is always a goal of mine :)
 
@@ -94,23 +94,23 @@ At the present moment, we can test the argparse library using the Rot13.java fil
 
 I tested the argparse library by running the following commands in Terminal.
 
-# First I'll cd to the directory where the code is stored on my filesystem
-% cd ~/Github/argparse/src
-# Let's inspect the current directory
-% ls
-argparse	Rot13.java
-# Let's inspect the argparse folder
-% ls argparse
-ArgumentParser.java	Option.java		Options.java		ParseResult.java	Types.java
-# Now let's compile the Java source code (.java files) into bytecode (.class files)
-% javac Rot13.java argparse/*.java
-# Now let's run the code
-% java Rot13 "hello world today is saturday october 24 2026"
-uryyb jbeyq gbqnl vf fngheqnl bpgbore 24 2026
-# Ok, it worked! Now let's write the output to an outputfile
-% java Rot13 "hello world today is saturday october 24 2026" -o output.txt
-# Now let's read the input from the outputfile that we just created
-% java Rot13 -i output.txt
-hello world today is saturday october 24 2026
+    # First I'll cd to the directory where the code is stored on my filesystem
+    % cd ~/Github/argparse/src
+    # Let's inspect the current directory
+    % ls
+    argparse	Rot13.java
+    # Let's inspect the argparse folder
+    % ls argparse
+    ArgumentParser.java	Option.java		Options.java		ParseResult.java	Types.java
+    # Now let's compile the Java source code (.java files) into bytecode (.class files)
+    % javac Rot13.java argparse/*.java
+    # Now let's run the code
+    % java Rot13 "hello world today is saturday october 24 2026"
+    uryyb jbeyq gbqnl vf fngheqnl bpgbore 24 2026
+    # Ok, it worked! Now let's write the output to an outputfile
+    % java Rot13 "hello world today is saturday october 24 2026" -o output.txt
+    # Now let's read the input from the outputfile that we just created
+    % java Rot13 -i output.txt
+    hello world today is saturday october 24 2026
 
 In the future, I plan to create more test files, so that I can test the argparse library more thoroughly.
