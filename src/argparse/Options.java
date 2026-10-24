@@ -12,21 +12,17 @@ public class Options {
     }
 
     public void addOption(Option option) {
-        String shortName = option.getShortName();
-        String longName = option.getLongName();
-        if (shortName == null && longName == null) {
-            throw new IllegalArgumentException("Option not valid: shortName is null and longName is null");
-        }
-        if (shortName != null) {
-            options.put(shortName, option);
-        }
-        if (longName != null) {
-            options.put(longName, option);
-        }
+        validate(option);
+        options.put(shortName, option);
+        options.put(longName, option);
     }
 
     public void addOption(String shortName, String longName, boolean hasArg, String description) {
         Option option = new Option(shortName, longName, hasArg, description);
+        addOption(option);
+
+    public void addOption(String shortName, String longName, boolean hasArg, Class type, String description) {
+        Option option = new Option(shortName, longName, hasArg, type, description);
         addOption(option);
     }
 
@@ -36,5 +32,13 @@ public class Options {
 
     public Option getOption(String name) {
         return options.get(name);
+    }
+
+    private void validate(Option option) {
+        String shortName = option.getShortName();
+        String longName = option.getLongName();
+        if (shortName == null || longName == null || shortName.isBlank() || longName.isBlank()) {
+            throw new IllegalArgumentException("shortName and longName are required");
+        }
     }
 }

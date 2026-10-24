@@ -8,7 +8,7 @@ import java.util.Map;
 public class ParseResult {
     
     private List<String> positionalArgs;
-    private Map<String, Option> options;
+    private Map<String, String> options;
 
     public ParseResult() {
         this.positionalArgs = new ArrayList<>();
@@ -23,12 +23,33 @@ public class ParseResult {
         return positionalArgs;
     }
 
-    public void setOptions(Map<String, Option> options) {
+    public void setOptions(Map<String, String> options) {
         this.options = options;        
     }
 
-    public Map<String, Option> getOptions() {
+    public Map<String, String> getOptions() {
         return options;
+    }
+
+    public String getPositionalArg(int index) {
+        if (index < positionalArgs.size()) {
+            return positionalArgs.get(index);
+        }
+        return null;
+    }
+
+    public <T> T getPositionalArg(int index, Class<T> type) {
+        String arg = getPositionalArg(index);
+        return Types.parse(arg, type);
+    }
+
+    public String getOption(String longName) {
+        return options.get(longName);
+    }
+
+    public <T> T getOption(String longName, Class<T> type) {
+        String option = options.get(longName);
+        return Types.parse(option, type);
     }
 
     @Override
@@ -45,10 +66,9 @@ public class ParseResult {
         builder.append("\n\n").append("Options\n");
         int counter = 0;
         int size = options.size();
-        for (Map.Entry<String, Option> entry : options.entrySet()) {
+        for (Map.Entry<String, String> entry : options.entrySet()) {
             String name = entry.getKey();
-            Option option = entry.getValue();
-            Object value = option.getValue();
+            String value = entry.getValue();
             builder.append(name).append(": ").append(value);
             if (counter + 1 < size) {
                 builder.append("\n");

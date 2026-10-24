@@ -1,0 +1,120 @@
+package argparse;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class Types {
+
+    private static final Set<Class> supportedTypes;
+
+    static {
+        supportedTypes = new HashSet<>(Set.of(
+            String.class,
+            Short.class,
+            Integer.class,
+            Long.class,
+            Double.class,
+            Float.class,
+            Boolean.class));
+    }
+
+    public static boolean supports(Class type) {
+        return supportedTypes.contains(type);
+    }
+
+    public static boolean is(String arg, Class type) {
+        if (!supports(type)) {
+            throw new IllegalArgumentException(type.getName() + " not supported");
+        }
+        else if (arg == null) {
+            return true;
+        }
+        else if (type.equals(String.class)) {
+            return true;
+        }
+        else if (type.equals(Short.class)) {
+            try {
+                Short.parseShort(arg);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        else if (type.equals(Integer.class)) {
+            try {
+                Integer.parseInt(arg);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        else if (type.equals(Long.class)) {
+            try {
+                Long.parseLong(arg);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        else if (type.equals(Double.class)) {
+            try {
+                Double.parseDouble(arg);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        else if (type.equals(Float.class)) {
+            try {
+                Float.parseFloat(arg);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        else if (type.equals(Boolean.class)) {
+            return arg.equalsIgnoreCase("true") || arg.equalsIgnoreCase("false");
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static <T> T parse(String arg, Class<T> type) {
+        validate(arg, type);
+
+        if (arg == null) {
+            return type.cast(arg);
+        }
+        else if (type.equals(String.class)) {
+            return type.cast(arg);
+        }
+        else if (type.equals(Short.class)) {
+            return type.cast(Short.valueOf(arg));
+        }
+        else if (type.equals(Integer.class)) {
+            return type.cast(Integer.valueOf(arg));
+        }
+        else if (type.equals(Long.class)) {
+            return type.cast(Long.valueOf(arg));
+        }
+        else if (type.equals(Double.class)) {
+            return type.cast(Double.valueOf(arg));
+        }
+        else if (type.equals(Float.class)) {
+            return type.cast(Float.valueOf(arg));
+        }
+        else if (type.equals(Boolean.class)) {
+            return type.cast(Boolean.valueOf(arg));
+        }
+        else {
+            return type.cast(arg);
+        }
+    }
+
+    public static void validate(String arg, Class type) {
+        if (!is(arg, type)) {
+            throw new IllegalArgumentException("Argument is not of type " + type.getName());
+        }
+    }
+}
