@@ -13,6 +13,8 @@ public class Options {
 
     public void addOption(Option option) {
         validate(option);
+        String shortName = option.getShortName();
+        String longName = option.getLongName();
         options.put(shortName, option);
         options.put(longName, option);
     }
@@ -20,6 +22,7 @@ public class Options {
     public void addOption(String shortName, String longName, boolean hasArg, String description) {
         Option option = new Option(shortName, longName, hasArg, description);
         addOption(option);
+    }
 
     public void addOption(String shortName, String longName, boolean hasArg, Class type, String description) {
         Option option = new Option(shortName, longName, hasArg, type, description);
