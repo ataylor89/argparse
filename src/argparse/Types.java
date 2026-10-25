@@ -159,6 +159,10 @@ public class Types {
     public static <T> List<T> parseList(String arg, List<T> defaultValue, String delimiter, Class<T> type) {
         validate(arg, delimiter, List.class);
 
+        if (arg == null) {
+            return defaultValue;
+        }
+
         return Arrays.stream(arg.split(delimiter)).map(token -> {
             try {
                 Method method = type.getMethod("valueOf", String.class);
