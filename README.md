@@ -88,7 +88,7 @@ Having stated my three goals, in writing the argparse library - to make it easy,
 
 Let's proceed to the next section, Example usage.
 
-## Example usage
+## Example usage (part one)
 
 At the present moment, we can test the argparse library using the Rot13.java file.
 
@@ -114,3 +114,37 @@ I tested the argparse library by running the following commands in Terminal.
     hello world today is saturday october 24 2026
 
 In the future, I plan to create more test files, so that I can test the argparse library more thoroughly.
+
+# Example usage (part two)
+
+We can test the argparse library using the AddSubtract.java file.
+
+I did so by running the following commands in Terminal.
+
+    # cd into the src directory
+    % cd ~/Github/argparse/src
+
+    # Inspect the src directory
+    % ls
+    AddSubtract.java	argparse		Rot13.java
+
+    # Inspect the argparse directory
+    % ls argparse
+    ArgumentParser.java	Option.java		Options.java		ParseResult.java	Types.java
+
+    # Compile the Java source code into bytecode
+    % javac *.java argparse/*.java
+
+    # Encrypt our message, with a key of 12345, and write the output to encrypted_message.txt
+    % java AddSubtract -e "hello world today is sunday october 25 2026" -k 12345 -o encrypted_message.txt
+
+    # Inspect the encrypted message
+    % cat encrypted_message.txt
+
+    # Decrypt the encrypted message, with the same key, using encrypted_message.txt as our input file
+    % java AddSubtract -d -i encrypted_message.txt -k 12345
+    hello world today is sunday october 25 2026
+
+You can see that it works, and that the encrypted message is really beautiful.
+
+I think that the encrypted message (arising from a key of 12345) consists of characters from the Japanese syllabary.
