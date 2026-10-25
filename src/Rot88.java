@@ -20,6 +20,8 @@ public class Rot88 {
      *
      * We actually don't use this constant... I end up hard-coding it...
      * But I thought it would be nice to define it, and add a comment.
+     *
+     * Cf. java.lang.Character.MAX_CODE_POINT
      */
     public static final int MAX_UNICODE = 0x10FFFF;
 
