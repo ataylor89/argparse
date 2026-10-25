@@ -115,7 +115,7 @@ I tested the argparse library by running the following commands in Terminal.
 
 In the future, I plan to create more test files, so that I can test the argparse library more thoroughly.
 
-# Example usage (part two)
+## Example usage (part two)
 
 We can test the argparse library using the AddSubtract.java file.
 
@@ -148,3 +148,41 @@ I did so by running the following commands in Terminal.
 You can see that it works, and that the encrypted message is really beautiful.
 
 I think that the encrypted message (arising from a key of 12345) consists of characters from the Japanese syllabary.
+
+## Example usage (part three)
+
+AddSubtract2.java is another use case, another test case.
+
+(It's a new use case, because it expects a list of integers as its key.)
+
+I tested this use case, by running the following commands in Terminal.
+
+    # cd into the src directory
+    % cd ~/Github/argparse/src
+
+    # Inspect the src directory
+    % ls
+    AddSubtract.java	AddSubtract2.java	argparse		Rot13.java
+
+    # Inspect the argparse directory
+    % ls argparse
+    ArgumentParser.java	Option.java		Options.java		ParseResult.java	Types.java
+
+    # Compile the Java source code into bytecode
+    % javac *.java argparse/*.java
+
+    # Encrypt our message, with a key of "12345,12346,12347", and write the output to stdout
+    % java AddSubtract2 -e "hello world today is sunday october 25 2026" -k 12345,123456,123457
+
+    # Encrypt our message, with a key of "12345,12346,12347", and write the output to cipher.txt
+    % java AddSubtract2 -e "hello world today is sunday october 25 2026" -k 12345,123456,123457 -o cipher.txt
+
+    # Inspect the output file
+    % cat cipher.txt
+
+    # Decrypt the encrypted message, with the same key, using cipher.txt as our input file
+    % java AddSubtract2 -d -i cipher.txt -k 12345,12346,12347
+
+Once again, the encrypted message is really beautiful.
+
+Once again, I think that the encrypted message is written in characters from the Japanese syllabary.
