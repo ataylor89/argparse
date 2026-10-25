@@ -19,14 +19,17 @@ public class Options {
         options.put(longName, option);
     }
 
-    public void addOption(String shortName, String longName, boolean hasArg, String description) {
-        Option option = new Option(shortName, longName, hasArg, description);
+    public void addOption(String shortName, String longName, boolean hasArg, String delimiter, Class type, String description) {
+        Option option = new Option(shortName, longName, hasArg, delimiter, type, description);
         addOption(option);
     }
 
     public void addOption(String shortName, String longName, boolean hasArg, Class type, String description) {
-        Option option = new Option(shortName, longName, hasArg, type, description);
-        addOption(option);
+        addOption(shortName, longName, hasArg, null, type, description);
+    }
+
+    public void addOption(String shortName, String longName, boolean hasArg, String description) {
+        addOption(shortName, longName, hasArg, null, String.class, description);
     }
 
     public boolean hasOption(String name) {

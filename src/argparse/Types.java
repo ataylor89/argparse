@@ -1,6 +1,9 @@
 package argparse;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Types {
@@ -16,14 +19,15 @@ public class Types {
             Long.class,
             Double.class,
             Float.class,
-            Boolean.class));
+            Boolean.class,
+            List.class));
     }
 
     public static boolean supports(Class type) {
         return supportedTypes.contains(type);
     }
 
-    public static boolean is(String arg, Class type) {
+    public static boolean is(String arg, String delimiter, Class type) {
         if (!supports(type)) {
             throw new IllegalArgumentException(type.getName() + " not supported");
         }
@@ -84,18 +88,29 @@ public class Types {
         else if (type.equals(Boolean.class)) {
             return arg.equalsIgnoreCase("true") || arg.equalsIgnoreCase("false");
         }
+        else if (type.equals(List.class)) {
+            return arg.split(delimiter).length > 1;
+        }
         else {
             return false;
         }
     }
 
-    public static void validate(String arg, Class type) {
-        if (!is(arg, type)) {
+    public static boolean is(String arg, Class type) {
+        return is(arg, null, type);
+    }
+
+    public static void validate(String arg, String delimiter, Class type) {
+        if (!is(arg, delimiter, type)) {
             throw new IllegalArgumentException("Argument is not of type " + type.getName());
         }
     }
 
-    public static <T> T parse(String arg, T defaultValue, Class<T> type) {
+    public static void validate(String arg, Class type) {
+        validate(arg, null, type);
+    }
+
+    public static <T> T parse(String arg, T defaultValue, String delimiter, Class<T> type) {
         validate(arg, type);
 
         if (arg == null) {
@@ -125,8 +140,36 @@ public class Types {
         else if (type.equals(Boolean.class)) {
             return type.cast(Boolean.valueOf(arg));
         }
+        else if (type.equals(List.class)) {
+            return type.cast(List.of(arg.split(delimiter)));
+        }
         else {
             return type.cast(arg);
         }
+    }
+
+    public static <T> T parse(String arg, T defaultValue, Class<T> type) {
+        return parse(arg, defaultValue, null, type);
+    }
+
+    public static <T> T parse(String arg, Class<T> type) {
+        return parse(arg, null, null, type);
+    }
+
+    public static <T> List<T> parseList(String arg, List<T> defaultValue, String delimiter, Class<T> type) {
+        validate(arg, delimiter, List.class);
+
+        return Arrays.stream(arg.split(delimiter)).map(token -> {
+            try {
+                Method method = type.getMethod("valueOf", String.class);
+                return type.cast(method.invoke(null, token));
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Unable to parse list of type " + type.getName());
+            }
+        }).toList();
+    }
+
+    public static <T> List<T> parseList(String arg, String delimiter, Class<T> type) {
+        return parseList(arg, null, delimiter, type);
     }
 }

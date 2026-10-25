@@ -38,28 +38,39 @@ public class ParseResult {
         return null;
     }
 
-    public <T> T getPositionalArg(int index, Class<T> type) {
-        String arg = getPositionalArg(index);
-        return Types.parse(arg, null, type);
-    }
-
     public <T> T getPositionalArg(int index, T defaultValue, Class<T> type) {
         String arg = getPositionalArg(index);
         return Types.parse(arg, defaultValue, type);
+    }
+
+    public <T> T getPositionalArg(int index, Class<T> type) {
+        return getPositionalArg(index, null, type);
     }
 
     public String getOption(String longName) {
         return options.get(longName);
     }
 
-    public <T> T getOption(String longName, Class<T> type) {
+    public <T> T getOption(String longName, T defaultValue, String delimiter, Class<T> type) {
         String option = options.get(longName);
-        return Types.parse(option, null, type);
+        return Types.parse(option, defaultValue, delimiter, type);
     }
 
     public <T> T getOption(String longName, T defaultValue, Class<T> type) {
+        return getOption(longName, defaultValue, null, type);
+    }
+
+    public <T> T getOption(String longName, Class<T> type) {
+        return getOption(longName, null, null, type);
+    }
+
+    public <T> List<T> getOptionAsList(String longName, List<T> defaultValue, String delimiter, Class<T> type) {
         String option = options.get(longName);
-        return Types.parse(option, defaultValue, type);
+        return Types.parseList(option, defaultValue, delimiter, type);
+    }
+
+    public <T> List<T> getOptionAsList(String longName, String delimiter, Class<T> type) {
+        return getOptionAsList(longName, null, delimiter, type);
     }
 
     @Override
