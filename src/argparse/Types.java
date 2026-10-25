@@ -80,6 +80,12 @@ public class Types {
         }
     }
 
+    public static void validate(String arg, Class type) {
+        if (!is(arg, type)) {
+            throw new IllegalArgumentException("Argument is not of type " + type.getName());
+        }
+    }
+
     public static <T> T parse(String arg, Class<T> type) {
         validate(arg, type);
 
@@ -109,12 +115,6 @@ public class Types {
         }
         else {
             return type.cast(arg);
-        }
-    }
-
-    public static void validate(String arg, Class type) {
-        if (!is(arg, type)) {
-            throw new IllegalArgumentException("Argument is not of type " + type.getName());
         }
     }
 }
