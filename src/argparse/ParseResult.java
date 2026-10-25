@@ -40,7 +40,12 @@ public class ParseResult {
 
     public <T> T getPositionalArg(int index, Class<T> type) {
         String arg = getPositionalArg(index);
-        return Types.parse(arg, type);
+        return Types.parse(arg, null, type);
+    }
+
+    public <T> T getPositionalArg(int index, T defaultValue, Class<T> type) {
+        String arg = getPositionalArg(index);
+        return Types.parse(arg, defaultValue, type);
     }
 
     public String getOption(String longName) {
@@ -49,7 +54,12 @@ public class ParseResult {
 
     public <T> T getOption(String longName, Class<T> type) {
         String option = options.get(longName);
-        return Types.parse(option, type);
+        return Types.parse(option, null, type);
+    }
+
+    public <T> T getOption(String longName, T defaultValue, Class<T> type) {
+        String option = options.get(longName);
+        return Types.parse(option, defaultValue, type);
     }
 
     @Override

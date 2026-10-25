@@ -86,11 +86,11 @@ public class Types {
         }
     }
 
-    public static <T> T parse(String arg, Class<T> type) {
+    public static <T> T parse(String arg, T defaultValue, Class<T> type) {
         validate(arg, type);
 
         if (arg == null) {
-            return type.cast(arg);
+            return defaultValue;
         }
         else if (type.equals(String.class)) {
             return type.cast(arg);
