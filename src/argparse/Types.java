@@ -10,6 +10,7 @@ public class Types {
     static {
         supportedTypes = new HashSet<>(Set.of(
             String.class,
+            Byte.class,
             Short.class,
             Integer.class,
             Long.class,
@@ -31,6 +32,14 @@ public class Types {
         }
         else if (type.equals(String.class)) {
             return true;
+        }
+        else if (type.equals(Byte.class)) {
+            try {
+                Byte.parseByte(arg);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
         }
         else if (type.equals(Short.class)) {
             try {
@@ -94,6 +103,9 @@ public class Types {
         }
         else if (type.equals(String.class)) {
             return type.cast(arg);
+        }
+        else if (type.equals(Byte.class)) {
+            return type.cast(Byte.valueOf(arg));
         }
         else if (type.equals(Short.class)) {
             return type.cast(Short.valueOf(arg));
