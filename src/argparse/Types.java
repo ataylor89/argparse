@@ -89,7 +89,11 @@ public class Types {
             return arg.equalsIgnoreCase("true") || arg.equalsIgnoreCase("false");
         }
         else if (type.equals(List.class)) {
-            return arg.split(delimiter).length > 1;
+            try {
+                return arg.split(delimiter).length > 1;
+            } catch(Exception e) {
+                return false;
+            }
         }
         else {
             return false;
