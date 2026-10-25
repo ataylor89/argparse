@@ -186,3 +186,129 @@ I tested this use case, by running the following commands in Terminal.
 Once again, the encrypted message is really beautiful.
 
 Once again, I think that the encrypted message is written in characters from the Japanese syllabary.
+
+## Example usage (part four)
+
+Rot88 is a rotation cipher, just like Rot13.
+
+Rot13 rotates an English-language letter by 13 places (wrapping around when it reaches the end of the alphabet).
+
+Rot88 rotates a Unicode character by 0x88000 places (wrapping around when it reaches the end of the code space).
+
+0x88000 is actually hexadecimal notation for the decimal value 557,056.
+
+0x88000 is half the size of the Unicode code space (the full size is 0x110000 which is equal to 1114112 in decimal).
+
+You can see the parallel...
+
+13 is half the size of the English-language alphabet.
+
+0x88000 is half the size of the Unicode code space.
+
+Now, you might object and say, "Why don't you name your algorithm Rot0x88000?"
+
+I could name it that... but I named it Rot88 for shorthand :)
+
+The 13 in Rot13 is a reference to the decimal value 13.
+
+The 88 in Rot88 is a reference to the hexadecimal value 0x88000.
+
+Now, having said all this, let's run the commands that are needed, in Terminal, to test out our new file.
+
+(If you don't have the Terminal macOS application, than there are many other terminal emulators that would suffice.)
+
+    # cd into the src directory
+    % cd ~/Github/argparse/src
+
+    # Inspect the src directory
+    % ls
+    AddSubtract.java	AddSubtract2.java	argparse		Rot13.java		Rot88.java
+
+    # Inspect the argparse directory
+    % ls argparse
+    ArgumentParser.java	Option.java		Options.java		ParseResult.java	Types.java
+
+    # Compile the Java source code into bytecode
+    % javac *.java argparse/*.java
+
+    # Encrypt a message using the Rot88 rotation cipher
+    % java Rot88 "hello world today is sunday october 25 2026"
+
+    # Encrypt a message using the Rot88 rotation cipher, and write the output to cipher.txt
+    % java Rot88 "hello world today is sunday october 25 2026" -o cipher.txt
+
+    # Inspect the output file
+    % cat cipher.txt
+
+    # Decrypt our message using the Rot88 rotation cipher, using cipher.txt as our input file
+    % java Rot88 -i cipher.txt
+
+Rot88, like Rot13, is a symmetric key algorithm.
+
+This means that the same key is used for both encryption and decryption.
+
+Rot88 is its own inverse.
+
+We can write this mathematically as Rot88(Rot88(message)) = message.
+`
+XOR is another example of a symmetric key algorithm.
+
+RSA is an example of an asymmetric key algorithm (it uses different keys for encryption and decryption).
+
+I think that asymmetric key cryptography is the same thing as public key cryptography.
+
+I think that these two terms are synonymous... that they mean the same thing.
+
+Diffie-Hellman (DH) is a second example of asymmetric, public key cryptography.
+
+Elliptic Curve Cryptography (ECC) is a third example of asymmetric, public key cryptography.
+
+In public key cryptography, the encryption key is called the public key, and the decryption key is called the private key.
+
+The encryption key - the public key - gets shared with your audience.
+
+(It can be shared through in-person delivery, electronic delivery, or some other means of delivery.)
+
+The decryption key - the private key - stays with you, and doesn't get shared with anyone.
+
+The idea is this:
+
+Alex shares his encryption key with Bob, and Bob shares his encryption key with Alex.
+
+Alex uses Bob's encryption key to write Bob a message. Bob decrypts it using his decryption key.
+
+Bob uses Alex's encryption key to write Alex a message. Alex decrypts it using his decryption key.
+
+In the best case scenario, Alex and Bob find a secure way to exchange their encryption keys.
+
+If Charlie intercepts a message that Alex sends to Bob, then it is very difficult for him to decrypt the message, because he is lacking both the encryption key and the decryption key, which gives him no easy way to crack the message.
+
+In the worst case scenario, Alex's encryption key gets discovered by Charlie.
+
+If Charlie intercepts a message, then it is still very difficult for him to decrypt the message, because the encryption key is not enough... he actually needs to know the decryption key in order to decrypt the message.
+
+But it is actually possible for Charlie to derive the decryption key from the encryption key, if he has access to a very powerful computer, and if he generates a table of (n, e, d) tuples for the (n, e) tuples in the encryption key.
+
+For this reason, it is best practice to keep your encryption key as secret as possible.
+
+It's called a public key, but this is almost a misnomer, because you should keep your encryption key as secret as possible.
+
+It is also best practice to keep your decryption key as secret as possible.
+
+In fact, you should share your decryption key with no one.
+
+If you ask, "Why should I keep my encryption key as secret as possible?"
+
+The answer is this: "Because it's possible to derive a decryption key from an encryption key, especially if someone has access to a powerful computer and knows the algorithm for doing so."
+
+Now, I must admit that I digressed.
+
+We were talking about Rot88, and then we launched into a conversation about public key cryptography.
+
+But it's all well and good, because I plan to create an RSA.java file, in this repository, in the future.
+
+The discussion, heretofore, will come in handy, when we reach the example usage section for the RSA algorithm.
+
+In other words, I'll be adding RSA.java to the list of use cases, at some point in the future :)
+
+(Should I call it RSA.java, or Rsa.java? I'm not sure...)
