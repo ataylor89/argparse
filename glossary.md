@@ -8,7 +8,7 @@ I thought it would help to compile a glossary of terms that are used in my sourc
 
 | Term | Definition | Examples | Etymology |
 | ---- | ---------- | -------- | --------- |
-| Decode | To convert code into human-readable data |||
-| Encode | To convert human-readable data into code |||
+| Decode | To convert code into human-readable data | ASCII character encoding, Unicode character encoding ||
+| Encode | To convert human-readable data into code | ASCII character encoding, Unicode character encoding ||
 | Input validation | Input validation is the process of making sure that an input meets the requirements |||
-| Parser | A parser is a tool that reads an input, deciphers an input, and produces a parse tree or a parse result, which makes the input easier to work with and understand. | Command-line argument parser, JSON parser, CSV parser, compilers and interpeters, natural language parser | From the Latin word "pars, partis" |
+| Parser | A parser is a tool that reads an input, deciphers an input, and produces a parse tree or a parse result, which makes the input easier to work with and understand. | Command-line argument parser, HTML parser, XML parser, JSON parser, YAML parser, CSV parser, SQL parser, compilers and interpeters, natural language parser | From the Latin word "pars, partis" which means "part" or "parts" |
