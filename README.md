@@ -250,7 +250,7 @@ This means that the same key is used for both encryption and decryption.
 Rot88 is its own inverse.
 
 We can write this mathematically as Rot88(Rot88(message)) = message.
-`
+
 XOR is another example of a symmetric key algorithm.
 
 RSA is an example of an asymmetric key algorithm (it uses different keys for encryption and decryption).
