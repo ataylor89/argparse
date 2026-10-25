@@ -215,7 +215,7 @@ The 88 in Rot88 is a reference to the hexadecimal value 0x88000.
 
 Now, having said all this, let's run the commands that are needed, in Terminal, to test out our new file.
 
-(If you don't have the Terminal macOS application, than there are many other terminal emulators that would suffice.)
+(If you don't have the macOS Terminal application, then there are many other terminal emulators that would suffice.)
 
     # cd into the src directory
     % cd ~/Github/argparse/src
