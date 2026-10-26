@@ -115,7 +115,7 @@ public class Types {
     }
 
     public static <T> T parse(String arg, T defaultValue, String delimiter, Class<T> type) {
-        validate(arg, type);
+        validate(arg, delimiter, type);
 
         if (arg == null) {
             return defaultValue;
