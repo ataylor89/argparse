@@ -11,6 +11,7 @@ I thought it would help to compile a glossary of terms that are used in my sourc
 | Algorithm | A list of instructions | List algorithms (Quicksort, Quickselect, Binary Search), Tree algorithms (Binary search tree, Red-black tree), Graph algorithms (Snakes and ladders), Stack algorithms (mathematical expression parsing and evaluation), Queue algorithms (Priority queue), Cryptography algorithms (AddSubtract, ROT13, ROT88, XOR, RSA) |
 | Cipher | A cryptography algorithm; an algorithm for encrypting or decrypting a message | AddSubtract, ROT13, ROT88, XOR, RSA |
 | Ciphertext | An encrypted message; encrypted information ||
+| Data structure | A data structure is a strategy for storing data | Arrays, lists (e.g. Python's built-in list type), linked lists, stacks, queues, maps, hash maps (e.g. java.util.HashMap), tree maps (e.g. java.util.TreeMap, which is based on a red-black tree), dictionaries (e.g. Python's built-in dict type), binary search trees, red-black trees, priority queues, graphs |
 | Decode | To convert code into human-readable data | ASCII, Unicode |
 | Encode | To convert human-readable data into code | ASCII, Unicode |
 | Input validation | Input validation is the process of making sure that an input meets the requirements ||
