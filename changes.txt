@@ -1,4 +1,4 @@
-October 27, 2026
+Tuesday, October 27, 2026
 
 * Added support for base64 encoding and decoding in Rot88.java
 * Added the encrypt, decrypt, and base64 flags (-e, --encrypt, -d, --decrypt, -b64, --base64)
