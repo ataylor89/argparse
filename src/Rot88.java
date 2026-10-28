@@ -3,8 +3,10 @@ import argparse.Option;
 import argparse.Options;
 import argparse.ParseResult;
 import java.io.IOException;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Base64;
 
 public class Rot88 {
 
@@ -41,10 +43,16 @@ public class Rot88 {
         Options options = new Options();
         options.addOption("i", "inputfile", true, "Path to input file");
         options.addOption("o", "outputfile", true, "Path to output file");
+        options.addOption("b64", "base64", false, Boolean.class, "Base64 encoding/decoding");
+        options.addOption("e", "encrypt", false, Boolean.class, "Encrypt");
+        options.addOption("d", "decrypt", false, Boolean.class, "Decrypt");
         ParseResult result = parser.parse(options, args);
         String message = result.getPositionalArg(0);
         String inputfile = result.getOption("inputfile");
         String outputfile = result.getOption("outputfile");
+        boolean base64 = result.getOption("base64", false, Boolean.class);
+        boolean encrypt = result.getOption("encrypt", false, Boolean.class);
+        boolean decrypt = result.getOption("decrypt", false, Boolean.class);
         if (message == null && inputfile == null) {
             System.out.println("A message or an input file is required.");
             System.exit(1);
@@ -58,7 +66,20 @@ public class Rot88 {
                 System.exit(1);
             }
         }
-        String output = rot88(message);
+        String output = null;
+        if (encrypt && base64) {
+            String encrypted = rot88(message);
+            byte[] encoded = Base64.getEncoder().encode(encrypted.getBytes(UTF_8));
+            output = new String(encoded, UTF_8);
+        }
+        else if (decrypt && base64) {
+            byte[] buffer = Base64.getDecoder().decode(message.getBytes(UTF_8));
+            String decoded = new String(buffer, UTF_8);
+            output = rot88(decoded);
+        }
+        else {
+            output = rot88(message);
+        }
         if (outputfile == null) {
             System.out.println(output);
         }
