@@ -3,7 +3,6 @@ import argparse.Option;
 import argparse.Options;
 import argparse.ParseResult;
 import java.io.IOException;
-import static java.nio.charset.StandardCharsets.UTF_8;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
@@ -69,12 +68,12 @@ public class Rot88 {
         String output = null;
         if (encrypt && base64) {
             String encrypted = rot88(message);
-            byte[] encoded = Base64.getEncoder().encode(encrypted.getBytes(UTF_8));
-            output = new String(encoded, UTF_8);
+            byte[] encoded = Base64.getEncoder().encode(encrypted.getBytes());
+            output = new String(encoded);
         }
         else if (decrypt && base64) {
-            byte[] buffer = Base64.getDecoder().decode(message.getBytes(UTF_8));
-            String decoded = new String(buffer, UTF_8);
+            byte[] buffer = Base64.getDecoder().decode(message.getBytes());
+            String decoded = new String(buffer);
             output = rot88(decoded);
         }
         else {
