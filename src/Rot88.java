@@ -66,15 +66,21 @@ public class Rot88 {
             }
         }
         String output = null;
-        if (encrypt && base64) {
-            String encrypted = rot88(message);
-            byte[] encoded = Base64.getEncoder().encode(encrypted.getBytes());
-            output = new String(encoded);
-        }
-        else if (decrypt && base64) {
-            byte[] buffer = Base64.getDecoder().decode(message.getBytes());
-            String decoded = new String(buffer);
-            output = rot88(decoded);
+        if (base64) {
+            if (encrypt) {
+                String encrypted = rot88(message);
+                byte[] encoded = Base64.getEncoder().encode(encrypted.getBytes());
+                output = new String(encoded);
+            }
+            else if (decrypt) {
+                byte[] buffer = Base64.getDecoder().decode(message.getBytes());
+                String decoded = new String(buffer);
+                output = rot88(decoded);
+            }
+            else {
+                System.out.println("An encrypt or decrypt flag is needed to use the base64 feature");
+                System.exit(1);
+            }
         }
         else {
             output = rot88(message);
