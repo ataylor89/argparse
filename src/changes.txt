@@ -1,0 +1,34 @@
+October 27, 2026
+
+* Added support for base64 encoding and decoding in Rot88.java
+* Added the encrypt, decrypt, and base64 flags (-e, --encrypt, -d, --decrypt, -b64, --base64)
+* If you don't use base64 encoding, then the encrypted message can contain non-printable characters
+* If you do use base64 encoding, then the encrypted message contains printable characters and only printable characters
+* This is one of the advantages of base64 encoding
+* Base64-encoded encrypted messages look really professional :)
+* There are 64 characters in the Base64 alphabet (A-Za-z0-9+/) plus a padding character (=)
+* Example usage:
+
+    # cd into the src directory
+    % cd ~/Github/argparse/src
+
+    # Compile the Java source code into bytecode
+    % javac *.java argparse/*.java
+
+    # Encrypt a message without base64 encoding
+    % java Rot88 "hello world today is tuesday october 27 2026"
+
+    # Encrypt a message with base64 encoding
+    % java Rot88 "hello world today is tuesday october 27 2026" -e -b64
+    6IGo6IGl6IGs6IGs6IGv6ICg6IG36IGv6IGy6IGs6IGk6ICg6IG06IGv6IGk6IGh6IG56ICg6IGp6IGz6ICg6IG06IG16IGl6IGz6IGk6IGh6IG56ICg6IGv6IGj6IG06IGv6IGi6IGl6IGy6ICg6ICy6IC36ICg6ICy6ICw6ICy6IC2
+
+    # Encrypt a message with base64 encoding and write the output to cipher.txt
+    java Rot88 "hello world today is tuesday october 27 2026" -e -b64 -o cipher.txt
+
+    # Inspect cipher.txt
+    % cat cipher.txt
+    6IGo6IGl6IGs6IGs6IGv6ICg6IG36IGv6IGy6IGs6IGk6ICg6IG06IGv6IGk6IGh6IG56ICg6IGp6IGz6ICg6IG06IG16IGl6IGz6IGk6IGh6IG56ICg6IGv6IGj6IG06IGv6IGi6IGl6IGy6ICg6ICy6IC36ICg6ICy6ICw6ICy6IC2
+
+    # Decrypt the contents of cipher.txt
+    % java Rot88 -i cipher.txt -d -b64
+    hello world today is tuesday october 27 2026
