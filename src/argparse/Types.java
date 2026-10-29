@@ -27,7 +27,7 @@ public class Types {
         return supportedTypes.contains(type);
     }
 
-    public static boolean is(String arg, String delimiter, Class type) {
+    public static boolean is(String arg, Class type) {
         if (!supports(type)) {
             throw new IllegalArgumentException(type.getName() + " not supported");
         }
@@ -89,33 +89,21 @@ public class Types {
             return arg.equalsIgnoreCase("true") || arg.equalsIgnoreCase("false");
         }
         else if (type.equals(List.class)) {
-            try {
-                return arg.split(delimiter).length > 1;
-            } catch(Exception e) {
-                return false;
-            }
+            return true;
         }
         else {
             return false;
         }
     }
 
-    public static boolean is(String arg, Class type) {
-        return is(arg, null, type);
-    }
-
-    public static void validate(String arg, String delimiter, Class type) {
-        if (!is(arg, delimiter, type)) {
+    public static void validate(String arg, Class type) {
+        if (!is(arg, type)) {
             throw new IllegalArgumentException("Argument is not of type " + type.getName());
         }
     }
 
-    public static void validate(String arg, Class type) {
-        validate(arg, null, type);
-    }
-
     public static <T> T parse(String arg, T defaultValue, String delimiter, Class<T> type) {
-        validate(arg, delimiter, type);
+        validate(arg, type);
 
         if (arg == null) {
             return defaultValue;
@@ -161,7 +149,7 @@ public class Types {
     }
 
     public static <T> List<T> parseList(String arg, List<T> defaultValue, String delimiter, Class<T> type) {
-        validate(arg, delimiter, List.class);
+        validate(arg, List.class);
 
         if (arg == null) {
             return defaultValue;

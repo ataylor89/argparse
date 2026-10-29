@@ -5,25 +5,19 @@ public class Option {
     private String shortName;
     private String longName;
     private boolean hasArg;
-    private String delimiter;
     private Class type;
     private String description;
 
-    public Option(String shortName, String longName, boolean hasArg, String delimiter, Class type, String description) {
+    public Option(String shortName, String longName, boolean hasArg, Class type, String description) {
         this.shortName = shortName;
         this.longName = longName;
         this.hasArg = hasArg;
-        this.delimiter = delimiter;
         this.type = type;
         this.description = description;
     }
 
-    public Option(String shortName, String longName, boolean hasArg, Class type, String description) {
-        this(shortName, longName, hasArg, null, type, description);
-    }
-
     public Option(String shortName, String longName, boolean hasArg, String description) {
-        this(shortName, longName, hasArg, null, String.class, description);
+        this(shortName, longName, hasArg, String.class, description);
     }
 
     public void setShortName(String shortName) {
@@ -48,14 +42,6 @@ public class Option {
 
     public boolean hasArg() {
         return hasArg;
-    }
-
-    public void setDelimiter(String delimiter) {
-        this.delimiter = delimiter;
-    }
-
-    public String getDelimiter() {
-        return delimiter;
     }
 
     public void setType(Class type) {

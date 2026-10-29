@@ -21,9 +21,8 @@ public class ArgumentParser {
                     else {
                         value = "true";
                     }
-                    String delimiter = option.getDelimiter();
                     Class type = option.getType();
-                    Types.validate(value, delimiter, type);
+                    Types.validate(value, type);
                     String longName = option.getLongName();
                     result.getOptions().put(longName, value);
                 }

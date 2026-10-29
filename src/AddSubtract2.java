@@ -39,7 +39,7 @@ public class AddSubtract2 {
     public static void main(String[] args) {
         ArgumentParser parser = new ArgumentParser();
         Options options = new Options();
-        options.addOption("k", "key", true, ",", List.class, "Multi-integer key");
+        options.addOption("k", "key", true, List.class, "Multi-integer key");
         options.addOption("i", "inputfile", true, "Path to input file");
         options.addOption("o", "outputfile", true, "Path to output file");
         options.addOption("b64", "base64", false, Boolean.class, "Base64 encoding/decoding");
