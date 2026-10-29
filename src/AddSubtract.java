@@ -5,6 +5,7 @@ import argparse.ParseResult;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Base64;
 
 public class AddSubtract {
 
@@ -36,6 +37,7 @@ public class AddSubtract {
         options.addOption("k", "key", true, Integer.class, "Single-integer key");
         options.addOption("i", "inputfile", true, "Path to input file");
         options.addOption("o", "outputfile", true, "Path to output file");
+        options.addOption("b64", "base64", false, Boolean.class, "Base64 encoding/decoding");
         options.addOption("e", "encrypt", false, Boolean.class, "Encrypt");
         options.addOption("d", "decrypt", false, Boolean.class, "Decrypt");
         ParseResult result = parser.parse(options, args);
@@ -43,6 +45,7 @@ public class AddSubtract {
         Integer key = result.getOption("key", Integer.class);
         String inputfile = result.getOption("inputfile");
         String outputfile = result.getOption("outputfile");
+        Boolean base64 = result.getOption("base64", false, Boolean.class);
         Boolean encrypt = result.getOption("encrypt", false, Boolean.class);
         Boolean decrypt = result.getOption("decrypt", false, Boolean.class);
         if (message == null && inputfile == null) {
@@ -66,7 +69,27 @@ public class AddSubtract {
                 System.exit(1);
             }
         }
-        String output = encrypt ? encrypt(message, key) : decrypt(message, key);
+        String output = null;
+        if (encrypt) {
+            if (base64) {
+                String encrypted = encrypt(message, key);
+                byte[] encoded = Base64.getEncoder().encode(encrypted.getBytes());
+                output = new String(encoded);
+            }
+            else {
+                output = encrypt(message, key);
+            }
+        }
+        if (decrypt) {
+            if (base64) {
+                byte[] buffer = Base64.getDecoder().decode(message.getBytes());
+                String decoded = new String(buffer);
+                output = decrypt(decoded, key);
+            }
+            else {
+                output = decrypt(message, key);
+            }
+        }
         if (outputfile == null) {
             System.out.println(output);
         }

@@ -5,6 +5,7 @@ import argparse.ParseResult;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Base64;
 
 public class Rot88 {
 
@@ -41,10 +42,16 @@ public class Rot88 {
         Options options = new Options();
         options.addOption("i", "inputfile", true, "Path to input file");
         options.addOption("o", "outputfile", true, "Path to output file");
+        options.addOption("b64", "base64", false, Boolean.class, "Base64 encoding/decoding");
+        options.addOption("e", "encrypt", false, Boolean.class, "Encrypt");
+        options.addOption("d", "decrypt", false, Boolean.class, "Decrypt");
         ParseResult result = parser.parse(options, args);
         String message = result.getPositionalArg(0);
         String inputfile = result.getOption("inputfile");
         String outputfile = result.getOption("outputfile");
+        boolean base64 = result.getOption("base64", false, Boolean.class);
+        boolean encrypt = result.getOption("encrypt", false, Boolean.class);
+        boolean decrypt = result.getOption("decrypt", false, Boolean.class);
         if (message == null && inputfile == null) {
             System.out.println("A message or an input file is required.");
             System.exit(1);
@@ -58,7 +65,26 @@ public class Rot88 {
                 System.exit(1);
             }
         }
-        String output = rot88(message);
+        String output = null;
+        if (base64) {
+            if (encrypt) {
+                String encrypted = rot88(message);
+                byte[] encoded = Base64.getEncoder().encode(encrypted.getBytes());
+                output = new String(encoded);
+            }
+            else if (decrypt) {
+                byte[] buffer = Base64.getDecoder().decode(message.getBytes());
+                String decoded = new String(buffer);
+                output = rot88(decoded);
+            }
+            else {
+                System.out.println("An encrypt or decrypt flag is needed to use the base64 feature");
+                System.exit(1);
+            }
+        }
+        else {
+            output = rot88(message);
+        }
         if (outputfile == null) {
             System.out.println(output);
         }
