@@ -140,14 +140,6 @@ public class Types {
         }
     }
 
-    public static <T> T parse(String arg, T defaultValue, Class<T> type) {
-        return parse(arg, defaultValue, null, type);
-    }
-
-    public static <T> T parse(String arg, Class<T> type) {
-        return parse(arg, null, null, type);
-    }
-
     public static <T> List<T> parseList(String arg, List<T> defaultValue, String delimiter, Class<T> type) {
         validate(arg, List.class);
 
@@ -163,9 +155,5 @@ public class Types {
                 throw new IllegalArgumentException("Unable to parse list of type " + type.getName());
             }
         }).toList();
-    }
-
-    public static <T> List<T> parseList(String arg, String delimiter, Class<T> type) {
-        return parseList(arg, null, delimiter, type);
     }
 }

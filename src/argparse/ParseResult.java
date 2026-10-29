@@ -38,13 +38,17 @@ public class ParseResult {
         return null;
     }
 
-    public <T> T getPositionalArg(int index, T defaultValue, Class<T> type) {
+    public <T> T getPositionalArg(int index, T defaultValue, String delimiter, Class<T> type) {
         String arg = getPositionalArg(index);
-        return Types.parse(arg, defaultValue, type);
+        return Types.parse(arg, defaultValue, delimiter, type);
+    }
+
+    public <T> T getPositionalArg(int index, T defaultValue, Class<T> type) {
+        return getPositionalArg(index, defaultValue, null, type);
     }
 
     public <T> T getPositionalArg(int index, Class<T> type) {
-        return getPositionalArg(index, null, type);
+        return getPositionalArg(index, null, null, type);
     }
 
     public String getOption(String longName) {
