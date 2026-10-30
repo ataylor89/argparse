@@ -12,9 +12,11 @@ public class Option {
         private Class type;
         private Class subType;
         private String description;
-        private String value;
 
-        private Builder() {}
+        private Builder() {
+            this.type = String.class;
+            this.subType = String.class;
+        }
 
         public Builder shortName(String shortName) {
             this.shortName = shortName;
