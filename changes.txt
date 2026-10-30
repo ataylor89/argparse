@@ -32,3 +32,88 @@ Tuesday, October 27, 2026
     # Decrypt the contents of cipher.txt
     % java Rot88 -i cipher.txt -d -b64
     hello world today is tuesday october 27 2026
+
+Thursday, October 29, 2026 - Friday, October 30, 2026
+
+* In these notes, I'll be using the ClassName#methodName notation to refer to instance methods, and I'll be using the ClassName.methodName notation to refer to static methods
+* I improved the ParseResult class
+    * I removed some of the old methods
+    * I added the getOption, getOptionValue, and getParsedOptionValue methods
+    * I really like the new interface
+* The new ParseResult#getParsedOptionValue method has only one parameter - the option name
+    * It does not require a class literal for type information, unlike the old ParseResult#getOption method
+    * It resolves an option by looking up its name in a hash map
+    * It gets the option's type, in the form of a class literal, and passes it to the Types.parse method
+    * The Types.parse method uses the class literal to return a value of the desired type
+* I actually learned this technique - using a class literal as a runtime type token - by reading Gilad Bracha's tutorial on generics (which I link to in resources.md) and by studying the Apache Commons CLI project (see resources.md)
+* I streamlined the algorithm for command-line argument parsing in ArgumentParser.java
+    * It's a lot simpler now
+    * It looks up an option by name, figures out the option value, and then stores the value in the Option instance
+    * At the very end, it creates a ParseResult object, containing the positional arguments and the options
+* I added the builder pattern to the Option class
+    * I'm very fond of this new feature
+    * I learned how to implement the builder pattern by doing some research online and by studying Apache Commons CLI
+    * The builder pattern gives us a clear, simple, and organized way to build complex objects that require many parameters
+    * For example, some of my options are really complex, requiring a delimiter, default value, type, subtype, etc!
+* I created a file called BuilderPattern.java, in the src folder, to test the new builder feature
+    * It's based on AddSubtract2, and has the same interface as AddSubtract2
+    * I'll provide some examples in the example usage section below
+* Example usage:
+
+    # cd into the src directory
+    % cd ~/Github/argparse/src
+
+    # Compile the Java source code into bytecode
+    % javac *.java argparse/*.java
+
+    # Encrypt a message (keep in mind that BuilderPattern is modeled after AddSubtract2)
+    % java BuilderPattern "hello world today is friday" -e -k 1000,1001,1002
+
+    # Encrypt a message, and this time encode the encrypted message in base64
+    % java BuilderPattern "hello world today is friday" -e -k 1000,1001,1002 -b64
+    0ZDRjtGW0ZTRmNCK0Z/RmNGc0ZTRjdCK0ZzRmNGO0YnRotCK0ZHRnNCK0Y7Rm9GT0YzRitGj
+
+    # Encrypt a message, encode in base64, and write the result to cipher.txt
+    % java BuilderPattern "hello world today is friday" -e -k 1000,1001,1002 -b64 -o cipher.txt
+
+    # Inspect cipher.txt
+    % cat cipher.txt
+    0ZDRjtGW0ZTRmNCK0Z/RmNGc0ZTRjdCK0ZzRmNGO0YnRotCK0ZHRnNCK0Y7Rm9GT0YzRitGj
+
+    # Decrypt the contents of cipher.txt, using the same key
+    % java BuilderPattern -d -i cipher.txt -k 1000,1001,1002 -b64
+    hello world today is friday
+
+    # Ok, now let's test the help option :)
+    % java BuilderPattern -h
+    usage: java BuilderPattern [-h] [-v] [-i inputfile] [-k KEY] [-o OUTPUTFILE] [-e] [-d] [-b64] [message]
+
+    The purpose of this file is to test the builder feature in Option.java
+
+    # It worked like a charm!
+
+* Final remarks:
+
+You can see, from the example usage, that the BuilderPattern class works just as well as the AddSubtract2 class.
+
+The two classes are very similar... but the key difference is that the BuilderPattern class uses the builder pattern to create Option objects and to add them to the Options container.
+
+The AddSubtract2 class, on the other hand, uses the Options#addOption method.
+
+The Options#addOption method can save the programmer time and code if the option is not too complex.
+
+But it can also become a little messy, when the option is really complex.
+
+The Option.builder() approach can take a little more time, and a little more code, than the former approach.
+
+But it is often more organized and easier to read, especially when the option we are dealing with is really complex.
+
+In conclusion, it's nice to have both approaches.
+
+We can use whichever approach is more suited to the task at hand.
+
+This way, we have the best of both worlds.
+
+Now, I think I have finished remarking on the changes that I made, in the builder-pattern branch.
+
+I look forward to adding more features, in the future :)
