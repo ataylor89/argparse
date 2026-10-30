@@ -39,7 +39,7 @@ public class AddSubtract2 {
     public static void main(String[] args) {
         ArgumentParser parser = new ArgumentParser();
         Options options = new Options();
-        options.addOption("k", "key", true, List.class, "Multi-integer key");
+        options.addOption("k", "key", true, ",", List.class, Integer.class, "Multi-integer key");
         options.addOption("i", "inputfile", true, "Path to input file");
         options.addOption("o", "outputfile", true, "Path to output file");
         options.addOption("b64", "base64", false, Boolean.class, "Base64 encoding/decoding");
@@ -47,12 +47,12 @@ public class AddSubtract2 {
         options.addOption("d", "decrypt", false, Boolean.class, "Decrypt");
         ParseResult result = parser.parse(options, args);
         String message = result.getPositionalArg(0);
-        List<Integer> key = result.getOptionAsList("key", ",", Integer.class);
-        String inputfile = result.getOption("inputfile");
-        String outputfile = result.getOption("outputfile");
-        Boolean base64 = result.getOption("base64", false, Boolean.class);
-        Boolean encrypt = result.getOption("encrypt", false, Boolean.class);
-        Boolean decrypt = result.getOption("decrypt", false, Boolean.class);
+        List<Integer> key = result.getParsedOptionValue("key");
+        String inputfile = result.getParsedOptionValue("inputfile");
+        String outputfile = result.getParsedOptionValue("outputfile");
+        Boolean base64 = result.getParsedOptionValue("base64");
+        Boolean encrypt = result.getParsedOptionValue("encrypt");
+        Boolean decrypt = result.getParsedOptionValue("decrypt");
         if (message == null && inputfile == null) {
             System.out.println("A message or an input file is required.");
             System.exit(1);
