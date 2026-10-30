@@ -35,8 +35,12 @@ public class Options {
             throw new IllegalArgumentException("shortName and longName are required");
         }
         Class type = option.getType();
-        if (!Types.supports(type)) {
+        if (type != null && !Types.supports(type)) {
             throw new IllegalArgumentException(type.getName() + " is not supported");
+        }
+        Class subType = option.getSubType();
+        if (subType != null && !Types.supports(subType)) {
+            throw new IllegalArgumentException(subType.getName() + " is not supported");
         }
     }
 
