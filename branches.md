@@ -30,4 +30,14 @@ Tuesday, October 27, 2026
 
 [base64-encoding](https://github.com/ataylor89/argparse/tree/base64-encoding)
 
+* Added support for base64 encoding to Rot13.java, Rot88.java, AddSubtract.java, and AddSubtract2.java
+* Added the -b64 and --base64 flags
 * For a detailed explanation of the changes, see [changes.txt](https://github.com/ataylor89/argparse/blob/base64-encoding/changes.txt)
+
+Thursday, October 29, 2026 - Friday, October 30, 2026
+
+[builder-pattern](https://github.com/ataylor89/argparse/tree/builder-pattern)
+
+* Improved the ParseResult class, making it simpler and easier to use
+* Added the builder pattern to the Option class, which simplifies the creation of complex options
+* See [changes.txt](https://github.com/ataylor89/argparse/blob/builder-pattern/changes.txt)
