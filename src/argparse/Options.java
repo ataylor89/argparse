@@ -1,6 +1,7 @@
 package argparse;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Options {
@@ -11,21 +12,34 @@ public class Options {
         options = new HashMap<>();
     }
 
+    public void setOptions(Map<String, Option> options) {
+        this.options = options;
+    }
+
+    public Map<String, Option> getOptions() {
+        return options;
+    }
+
     public void addOption(Option option) {
-        validate(option);
         String shortName = option.getShortName();
         String longName = option.getLongName();
+        if (shortName == null || longName == null || shortName.isBlank() || longName.isBlank()) {
+            throw new IllegalArgumentException("shortName and longName are required");
+        }
         options.put(shortName, option);
         options.put(longName, option);
     }
 
+    public void addOption(String shortName, String longName, boolean hasArg, String delimiter, Class type, Class subType, String description) {
+        addOption(new Option(shortName, longName, hasArg, delimiter, type, subType, description));
+    }
+
     public void addOption(String shortName, String longName, boolean hasArg, Class type, String description) {
-        Option option = new Option(shortName, longName, hasArg, type, description);
-        addOption(option);
+        addOption(new Option(shortName, longName, hasArg, type, description));
     }
 
     public void addOption(String shortName, String longName, boolean hasArg, String description) {
-        addOption(shortName, longName, hasArg, String.class, description);
+        addOption(new Option(shortName, longName, hasArg, description));
     }
 
     public boolean hasOption(String name) {
@@ -36,11 +50,11 @@ public class Options {
         return options.get(name);
     }
 
-    private void validate(Option option) {
-        String shortName = option.getShortName();
-        String longName = option.getLongName();
-        if (shortName == null || longName == null || shortName.isBlank() || longName.isBlank()) {
-            throw new IllegalArgumentException("shortName and longName are required");
-        }
+    public int getCount() {
+        return (int) options.values().stream().distinct().count();
+    }
+
+    public List<Option> getDistinct() {
+        return options.values().stream().distinct().toList();
     }
 }

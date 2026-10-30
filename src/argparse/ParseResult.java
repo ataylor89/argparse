@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class ParseResult {
-    
-    private List<String> positionalArgs;
-    private Map<String, String> options;
 
-    public ParseResult() {
-        this.positionalArgs = new ArrayList<>();
-        this.options = new HashMap<>();
+    private List<String> positionalArgs;
+    private Options options;
+
+    public ParseResult(List<String> positionalArgs, Options options) {
+        this.positionalArgs = positionalArgs;
+        this.options = options;
     }
 
     public void setPositionalArgs(List<String> positionalArgs) {
@@ -23,11 +24,11 @@ public class ParseResult {
         return positionalArgs;
     }
 
-    public void setOptions(Map<String, String> options) {
+    public void setOptions(Options options) {
         this.options = options;        
     }
 
-    public Map<String, String> getOptions() {
+    public Options getOptions() {
         return options;
     }
 
@@ -38,43 +39,31 @@ public class ParseResult {
         return null;
     }
 
-    public <T> T getPositionalArg(int index, T defaultValue, String delimiter, Class<T> type) {
-        String arg = getPositionalArg(index);
-        return Types.parse(arg, defaultValue, delimiter, type);
+    public Option getOption(String longName) {
+        if (!options.hasOption(longName)) {
+            throw new NoSuchElementException("Unknown option: " + longName);
+        }
+        return options.getOption(longName);
     }
 
-    public <T> T getPositionalArg(int index, T defaultValue, Class<T> type) {
-        return getPositionalArg(index, defaultValue, null, type);
+    public String getOptionValue(String longName) {
+        Option option = getOption(longName);
+        return option.getValue();
     }
 
-    public <T> T getPositionalArg(int index, Class<T> type) {
-        return getPositionalArg(index, null, null, type);
-    }
-
-    public String getOption(String longName) {
-        return options.get(longName);
-    }
-
-    public <T> T getOption(String longName, T defaultValue, String delimiter, Class<T> type) {
-        String option = options.get(longName);
-        return Types.parse(option, defaultValue, delimiter, type);
-    }
-
-    public <T> T getOption(String longName, T defaultValue, Class<T> type) {
-        return getOption(longName, defaultValue, null, type);
-    }
-
-    public <T> T getOption(String longName, Class<T> type) {
-        return getOption(longName, null, null, type);
-    }
-
-    public <T> List<T> getOptionAsList(String longName, List<T> defaultValue, String delimiter, Class<T> type) {
-        String option = options.get(longName);
-        return Types.parseList(option, defaultValue, delimiter, type);
-    }
-
-    public <T> List<T> getOptionAsList(String longName, String delimiter, Class<T> type) {
-        return getOptionAsList(longName, null, delimiter, type);
+    @SuppressWarnings("unchecked")
+    public <T> T getParsedOptionValue(String longName) {
+        Option option = getOption(longName);
+        String value = option.getValue();
+        Class type = option.getType();
+        if (type.equals(List.class)) {
+            String delimiter = option.getDelimiter();
+            Class subType = option.getSubType();
+            return (T) Types.parseList(value, delimiter, subType);
+        }
+        else {
+            return (T) Types.parse(value, type);
+        }
     }
 
     @Override
@@ -89,16 +78,15 @@ public class ParseResult {
             }
         }
         builder.append("\n\n").append("Options\n");
-        int counter = 0;
-        int size = options.size();
-        for (Map.Entry<String, String> entry : options.entrySet()) {
-            String name = entry.getKey();
-            String value = entry.getValue();
+        List<Option> optionList = options.getDistinct();
+        int size = optionList.size();
+        for (int i = 0; i < size; i++) {
+            String name = optionList.get(i).getLongName();
+            String value = optionList.get(i).getValue();
             builder.append(name).append(": ").append(value);
-            if (counter + 1 < size) {
+            if (i + 1 < size) {
                 builder.append("\n");
             }
-            counter++;
         };
         return builder.toString();
     }

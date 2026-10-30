@@ -1,9 +1,12 @@
 package argparse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArgumentParser {
 
     public ParseResult parse(Options options, String[] args) {
-        ParseResult result = new ParseResult();
+        List<String> positionalArgs = new ArrayList<>();
         int index = 0;
         boolean skipNext = false;
         while (index < args.length) {
@@ -21,15 +24,12 @@ public class ArgumentParser {
                     else {
                         value = "true";
                     }
-                    Class type = option.getType();
-                    Types.validate(value, type);
-                    String longName = option.getLongName();
-                    result.getOptions().put(longName, value);
+                    option.setValue(value);
                 }
             }
             else {
                 String positionalArg = args[index];
-                result.getPositionalArgs().add(positionalArg);
+                positionalArgs.add(positionalArg);
             }
             index++;
             if (skipNext) {
@@ -37,6 +37,6 @@ public class ArgumentParser {
                 skipNext = false;
             }
         }
-        return result;
+        return new ParseResult(positionalArgs, options);
     }
 }

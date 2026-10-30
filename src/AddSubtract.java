@@ -42,12 +42,12 @@ public class AddSubtract {
         options.addOption("d", "decrypt", false, Boolean.class, "Decrypt");
         ParseResult result = parser.parse(options, args);
         String message = result.getPositionalArg(0);
-        Integer key = result.getOption("key", Integer.class);
-        String inputfile = result.getOption("inputfile");
-        String outputfile = result.getOption("outputfile");
-        Boolean base64 = result.getOption("base64", false, Boolean.class);
-        Boolean encrypt = result.getOption("encrypt", false, Boolean.class);
-        Boolean decrypt = result.getOption("decrypt", false, Boolean.class);
+        Integer key = result.getParsedOptionValue("key");
+        String inputfile = result.getParsedOptionValue("inputfile");
+        String outputfile = result.getParsedOptionValue("outputfile");
+        Boolean base64 = result.getParsedOptionValue("base64");
+        Boolean encrypt = result.getParsedOptionValue("encrypt");
+        Boolean decrypt = result.getParsedOptionValue("decrypt");
         if (message == null && inputfile == null) {
             System.out.println("A message or an input file is required.");
             System.exit(1);
