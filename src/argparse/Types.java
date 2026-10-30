@@ -59,16 +59,16 @@ public class Types {
     }
 
     public static <T> List<T> parseList(String arg, String delimiter, Class<T> type) {
-        if (arg == null) {
-            return null;
+        if (arg != null) {
+            return Arrays.stream(arg.split(delimiter)).map(token -> {
+                try {
+                    Method method = type.getMethod("valueOf", String.class);
+                    return type.cast(method.invoke(null, token));
+                } catch (Exception e) {
+                    throw new IllegalArgumentException("Unable to parse list of type " + type.getName());
+                }
+            }).toList();
         }
-        return Arrays.stream(arg.split(delimiter)).map(token -> {
-            try {
-                Method method = type.getMethod("valueOf", String.class);
-                return type.cast(method.invoke(null, token));
-            } catch (Exception e) {
-                throw new IllegalArgumentException("Unable to parse list of type " + type.getName());
-            }
-        }).toList();
+        return null;
     }
 }

@@ -21,13 +21,23 @@ public class Options {
     }
 
     public void addOption(Option option) {
+        validate(option);
+        String shortName = option.getShortName();
+        String longName = option.getLongName();
+        options.put(shortName, option);
+        options.put(longName, option);
+    }
+
+    private void validate(Option option) {
         String shortName = option.getShortName();
         String longName = option.getLongName();
         if (shortName == null || longName == null || shortName.isBlank() || longName.isBlank()) {
             throw new IllegalArgumentException("shortName and longName are required");
         }
-        options.put(shortName, option);
-        options.put(longName, option);
+        Class type = option.getType();
+        if (!Types.supports(type)) {
+            throw new IllegalArgumentException(type.getName() + " is not supported");
+        }
     }
 
     public void addOption(String shortName, String longName, boolean hasArg, String delimiter, Class type, Class subType, String description) {
