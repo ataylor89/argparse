@@ -29,7 +29,10 @@ public class Types {
     }
 
     public static <T> T parse(String arg, Class<T> type) throws ParseException {
-        if (type.equals(String.class)) {
+        if (arg == null) {
+            return null;
+        }
+        else if (type.equals(String.class)) {
             return type.cast(arg);
         }
         else if (type.equals(Byte.class)) {
