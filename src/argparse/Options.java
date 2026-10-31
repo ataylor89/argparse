@@ -60,7 +60,10 @@ public class Options {
         return options.containsKey(name);
     }
 
-    public Option getOption(String name) {
+    public Option getOption(String name) throws ParseException {
+        if (!options.containsKey(name)) {
+            throw new ParseException("Unknown option: " + name);
+        }
         return options.get(name);
     }
 

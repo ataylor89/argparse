@@ -40,9 +40,6 @@ public class ParseResult {
     }
 
     public Option getOption(String name) throws ParseException {
-        if (!options.hasOption(name)) {
-            throw new ParseException("Unknown option: " + name);
-        }
         return options.getOption(name);
     }
 

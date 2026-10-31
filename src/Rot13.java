@@ -64,7 +64,9 @@ public class Rot13 {
          * because it is a field, a class variable, so the compiler assigns it a default value of null.
          *
          * Here is an explanation of the different kinds of variables in Java (instance, class, local, parameters):
-         * https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html
+         * https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html.
+         *
+         * To make a long story short... the rules for local variables are different from the rules for fields.
          */
         String message = null;
         String inputfile = null;
