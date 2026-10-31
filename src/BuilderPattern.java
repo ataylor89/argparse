@@ -92,7 +92,7 @@ public class BuilderPattern {
             help = result.getParsedOptionValue("help", false);
             verbose = result.getParsedOptionValue("verbose", false);
         } catch (ParseException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             System.exit(1);
         }
         if (help) {
