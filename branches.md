@@ -41,3 +41,11 @@ Thursday, October 29, 2026 - Friday, October 30, 2026
 * Improved the ParseResult class, making it simpler and easier to use
 * Added the builder pattern to the Option class, which simplifies the creation of complex options
 * See [changes.txt](https://github.com/ataylor89/argparse/blob/builder-pattern/changes.txt)
+
+Saturday, October 31, 2026
+
+[parse-exception](https://github.com/ataylor89/argparse/tree/parse-exception)
+
+* Created a new class, ParseException, and implemented uniform exception handling
+* Implemented a simpler way to set an option's default value
+* See [changes.txt](https://github.com/ataylor89/argparse/blob/parse-exception/changes.txt)

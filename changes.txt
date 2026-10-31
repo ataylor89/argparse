@@ -117,3 +117,36 @@ This way, we have the best of both worlds.
 Now, I think I have finished remarking on the changes that I made, in the builder-pattern branch.
 
 I look forward to adding more features, in the future :)
+
+Saturday, October 31, 2026
+
+* I created a new class called ParseException
+* ParseException is a checked exception, which means it must be caught or re-thrown (cf. Catch or Specify Requirement)
+* I explained exceptions and exception handling, in detail, in the comments to ParseException.java
+* I implemented uniform exception handling, throwing ParseException whenever there is an exception
+* I added exception handling to Rot13.java, Rot88.java, AddSubtract.java, AddSubtract2.java, and BuilderPattern.java
+* I removed defaultValue from the Option class
+* I created two new methods, ParseResult#getOptionValue(String,String) and ParseResult#getParsedOptionValue(String,T)
+* I implemented a simpler way of handling default values
+* I explained the difference between local variables and fields in the comments to Rot13.java
+* Example usage:
+
+    # cd into the src directory
+    % cd ~/Github/argparse/src
+
+    # Compile the Java source code into bytecode
+    % javac *.java argparse/*.java
+
+    # Encrypt a message
+    % java Rot13 "hello world today is saturday"
+    uryyb jbeyq gbqnl vf fngheqnl
+
+    # Encrypt a message, and encode the result in base64
+    % java Rot13 "hello world today is saturday" -e -b64
+    dXJ5eWIgamJleXEgZ2JxbmwgdmYgZm5naGVxbmw=
+
+    # Test how the program handles an unknown option
+    % java Rot13 "hello world today is saturday" --abcdefghijklmnopqrstuvwxyz
+    Unknown option: abcdefghijklmnopqrstuvwxyz
+
+    # Voilà! The exception handling works as expected
