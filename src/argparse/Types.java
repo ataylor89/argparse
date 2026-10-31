@@ -1,6 +1,7 @@
 package argparse;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Types {
         return supportedTypes.contains(type);
     }
 
-    public static <T> T parse(String arg, Class<T> type) {
+    public static <T> T parse(String arg, Class<T> type) throws ParseException {
         if (type.equals(String.class)) {
             return type.cast(arg);
         }
@@ -53,22 +54,25 @@ public class Types {
             return type.cast(Boolean.valueOf(arg));
         }
         else {
-            throw new IllegalArgumentException(
+            throw new ParseException(
                 String.format("The type %s is not supported by the Type.parse method", type.getName()));
         }
     }
 
-    public static <T> List<T> parseList(String arg, String delimiter, Class<T> type) {
-        if (arg != null) {
-            return Arrays.stream(arg.split(delimiter)).map(token -> {
-                try {
-                    Method method = type.getMethod("valueOf", String.class);
-                    return type.cast(method.invoke(null, token));
-                } catch (Exception e) {
-                    throw new IllegalArgumentException("Unable to parse list of type " + type.getName());
-                }
-            }).toList();
+    public static <T> List<T> parseList(String arg, String delimiter, Class<T> type) throws ParseException {
+        if (arg == null) {
+            return null;
         }
-        return null;
+        List<T> result = new ArrayList<>();
+        try {
+            String[] tokens = arg.split(delimiter);
+            for (String token : tokens) {
+                Method method = type.getMethod("valueOf", String.class);
+                result.add(type.cast(method.invoke(null, token)));
+            }
+        } catch (Exception e) {
+            throw new ParseException("Unable to parse list of type " + type.getName());
+        }
+        return result;
     }
 }

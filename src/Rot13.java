@@ -1,6 +1,7 @@
 import argparse.ArgumentParser;
 import argparse.Option;
 import argparse.Options;
+import argparse.ParseException;
 import argparse.ParseResult;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -43,20 +44,53 @@ public class Rot13 {
     }
 
     public static void main(String[] args) {
-        ArgumentParser parser = new ArgumentParser();
-        Options options = new Options();
-        options.addOption("i", "inputfile", true, "Path to input file");
-        options.addOption("o", "outputfile", true, "Path to output file");
-        options.addOption("b64", "base64", false, Boolean.class, "Base64 encoding/decoding");
-        options.addOption("e", "encrypt", false, Boolean.class, "Encrypt");
-        options.addOption("d", "decrypt", false, Boolean.class, "Decrypt");
-        ParseResult result = parser.parse(options, args);
-        String message = result.getPositionalArg(0);
-        String inputfile = result.getParsedOptionValue("inputfile");
-        String outputfile = result.getParsedOptionValue("outputfile");
-        Boolean base64 = result.getParsedOptionValue("base64");
-        Boolean encrypt = result.getParsedOptionValue("encrypt");
-        Boolean decrypt = result.getParsedOptionValue("decrypt");
+        /*
+         * Local variables are different from fields (instance variables and class variables).
+         *
+         * When we declare a field, the compiler assigns it a default value.
+         *
+         * When we declare a local variable, the compiler does not assign it a default value.
+         *
+         * Local variables have to be initialized before they are used.
+         *
+         * In fact, the Java Language Basics tutorial has this to say:
+         *
+         * "Accessing an unitializied local variable will result in a compile-time error."
+         * (Source: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html)
+         *
+         * For this reason, we initialize our local variables to null.
+         *
+         * Note that our table variable, declared at the top of the class, does not need to be initialized,
+         * because it is a field, a class variable, so the compiler assigns it a default value of null.
+         *
+         * Here is an explanation of the different kinds of variables in Java (instance, class, local, parameters):
+         * https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html
+         */
+        String message = null;
+        String inputfile = null;
+        String outputfile = null;
+        Boolean base64 = null;
+        Boolean encrypt = null;
+        Boolean decrypt = null;
+        try {
+            ArgumentParser parser = new ArgumentParser();
+            Options options = new Options();
+            options.addOption("i", "inputfile", true, "Path to input file");
+            options.addOption("o", "outputfile", true, "Path to output file");
+            options.addOption("b64", "base64", false, Boolean.class, "Base64 encoding/decoding");
+            options.addOption("e", "encrypt", false, Boolean.class, "Encrypt");
+            options.addOption("d", "decrypt", false, Boolean.class, "Decrypt");
+            ParseResult result = parser.parse(options, args);
+            message = result.getPositionalArg(0);
+            inputfile = result.getParsedOptionValue("inputfile");
+            outputfile = result.getParsedOptionValue("outputfile");
+            base64 = result.getParsedOptionValue("base64");
+            encrypt = result.getParsedOptionValue("encrypt");
+            decrypt = result.getParsedOptionValue("decrypt");
+        } catch (ParseException e) {
+            System.out.println(e);
+            System.exit(1);
+        }
         if (message == null && inputfile == null) {
             System.out.println("A message or an input file is required.");
             System.exit(1);

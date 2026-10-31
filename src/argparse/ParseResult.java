@@ -39,20 +39,20 @@ public class ParseResult {
         return null;
     }
 
-    public Option getOption(String name) {
+    public Option getOption(String name) throws ParseException {
         if (!options.hasOption(name)) {
-            throw new NoSuchElementException("Unknown option: " + name);
+            throw new ParseException("Unknown option: " + name);
         }
         return options.getOption(name);
     }
 
-    public String getOptionValue(String name) {
+    public String getOptionValue(String name) throws ParseException {
         Option option = getOption(name);
         return option.getValue();
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T getParsedOptionValue(String name) {
+    public <T> T getParsedOptionValue(String name) throws ParseException {
         Option option = getOption(name);
         String value = option.getValue();
         Class type = option.getType();
