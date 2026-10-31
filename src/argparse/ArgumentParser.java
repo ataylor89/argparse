@@ -12,24 +12,19 @@ public class ArgumentParser {
         while (index < args.length) {
             if (args[index].startsWith("-")) {
                 String name = args[index].startsWith("--") ? args[index].substring(2) : args[index].substring(1);
-                String value = null;
-                if (options.hasOption(name)) {
-                    Option option = options.getOption(name);
-                    if (option.hasArg()) {
-                        if (index + 1 < args.length) {
-                            value = args[index + 1];
-                            skipNext = true;
-                        }
+                Option option = options.getOption(name);
+                if (option.hasArg()) {
+                    if (index + 1 < args.length) {
+                        option.setValue(args[index + 1]);
+                        skipNext = true;
                     }
-                    else {
-                        value = "true";
-                    }
-                    option.setValue(value);
+                }
+                else {
+                    option.setValue("true");
                 }
             }
             else {
-                String positionalArg = args[index];
-                positionalArgs.add(positionalArg);
+                positionalArgs.add(args[index]);
             }
             index++;
             if (skipNext) {
