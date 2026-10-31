@@ -1,6 +1,7 @@
 import argparse.ArgumentParser;
 import argparse.Option;
 import argparse.Options;
+import argparse.ParseException;
 import argparse.ParseResult;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -38,20 +39,32 @@ public class Rot88 {
     }
 
     public static void main(String[] args) {
-        ArgumentParser parser = new ArgumentParser();
-        Options options = new Options();
-        options.addOption("i", "inputfile", true, "Path to input file");
-        options.addOption("o", "outputfile", true, "Path to output file");
-        options.addOption("b64", "base64", false, Boolean.class, "Base64 encoding/decoding");
-        options.addOption("e", "encrypt", false, Boolean.class, "Encrypt");
-        options.addOption("d", "decrypt", false, Boolean.class, "Decrypt");
-        ParseResult result = parser.parse(options, args);
-        String message = result.getPositionalArg(0);
-        String inputfile = result.getParsedOptionValue("inputfile");
-        String outputfile = result.getParsedOptionValue("outputfile");
-        Boolean base64 = result.getParsedOptionValue("base64");
-        Boolean encrypt = result.getParsedOptionValue("encrypt");
-        Boolean decrypt = result.getParsedOptionValue("decrypt");
+        // We initialize our local variables to null (cf. Rot13.java)
+        String message = null;
+        String inputfile = null;
+        String outputfile = null;
+        Boolean base64 = null;
+        Boolean encrypt = null;
+        Boolean decrypt = null;
+        try {
+            ArgumentParser parser = new ArgumentParser();
+            Options options = new Options();
+            options.addOption("i", "inputfile", true, "Path to input file");
+            options.addOption("o", "outputfile", true, "Path to output file");
+            options.addOption("b64", "base64", false, Boolean.class, "Base64 encoding/decoding");
+            options.addOption("e", "encrypt", false, Boolean.class, "Encrypt");
+            options.addOption("d", "decrypt", false, Boolean.class, "Decrypt");
+            ParseResult result = parser.parse(options, args);
+            message = result.getPositionalArg(0);
+            inputfile = result.getParsedOptionValue("inputfile");
+            outputfile = result.getParsedOptionValue("outputfile");
+            base64 = result.getParsedOptionValue("base64", false);
+            encrypt = result.getParsedOptionValue("encrypt", false);
+            decrypt = result.getParsedOptionValue("decrypt", false);
+        } catch (ParseException e) {
+            System.out.println(e);
+            System.exit(1);
+        }
         if (message == null && inputfile == null) {
             System.out.println("A message or an input file is required.");
             System.exit(1);

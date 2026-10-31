@@ -20,7 +20,7 @@ public class Options {
         return options;
     }
 
-    public void addOption(Option option) {
+    public void addOption(Option option) throws ParseException {
         validate(option);
         String shortName = option.getShortName();
         String longName = option.getLongName();
@@ -28,31 +28,31 @@ public class Options {
         options.put(longName, option);
     }
 
-    private void validate(Option option) {
+    private void validate(Option option) throws ParseException {
         String shortName = option.getShortName();
         String longName = option.getLongName();
         if (shortName == null || longName == null || shortName.isBlank() || longName.isBlank()) {
-            throw new IllegalArgumentException("shortName and longName are required");
+            throw new ParseException("Option shortName and longName are required");
         }
         Class type = option.getType();
         if (type != null && !Types.supports(type)) {
-            throw new IllegalArgumentException(type.getName() + " is not supported");
+            throw new ParseException(type.getName() + " is not a supported option type");
         }
         Class subType = option.getSubType();
         if (subType != null && !Types.supports(subType)) {
-            throw new IllegalArgumentException(subType.getName() + " is not supported");
+            throw new ParseException(subType.getName() + " is not a supported option type");
         }
     }
 
-    public void addOption(String shortName, String longName, boolean hasArg, String delimiter, Class type, Class subType, String description) {
+    public void addOption(String shortName, String longName, boolean hasArg, String delimiter, Class type, Class subType, String description) throws ParseException {
         addOption(new Option(shortName, longName, hasArg, delimiter, type, subType, description));
     }
 
-    public void addOption(String shortName, String longName, boolean hasArg, Class type, String description) {
+    public void addOption(String shortName, String longName, boolean hasArg, Class type, String description) throws ParseException {
         addOption(new Option(shortName, longName, hasArg, type, description));
     }
 
-    public void addOption(String shortName, String longName, boolean hasArg, String description) {
+    public void addOption(String shortName, String longName, boolean hasArg, String description) throws ParseException {
         addOption(new Option(shortName, longName, hasArg, description));
     }
 
@@ -60,7 +60,10 @@ public class Options {
         return options.containsKey(name);
     }
 
-    public Option getOption(String name) {
+    public Option getOption(String name) throws ParseException {
+        if (!options.containsKey(name)) {
+            throw new ParseException("Unknown option: " + name);
+        }
         return options.get(name);
     }
 

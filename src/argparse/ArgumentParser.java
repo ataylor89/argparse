@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ArgumentParser {
 
-    public ParseResult parse(Options options, String[] args) {
+    public ParseResult parse(Options options, String[] args) throws ParseException {
         List<String> positionalArgs = new ArrayList<>();
         int index = 0;
         boolean skipNext = false;
