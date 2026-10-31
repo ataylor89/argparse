@@ -58,9 +58,9 @@ public class Rot88 {
             message = result.getPositionalArg(0);
             inputfile = result.getParsedOptionValue("inputfile");
             outputfile = result.getParsedOptionValue("outputfile");
-            base64 = result.getParsedOptionValue("base64");
-            encrypt = result.getParsedOptionValue("encrypt");
-            decrypt = result.getParsedOptionValue("decrypt");
+            base64 = result.getParsedOptionValue("base64", false);
+            encrypt = result.getParsedOptionValue("encrypt", false);
+            decrypt = result.getParsedOptionValue("decrypt", false);
         } catch (ParseException e) {
             System.out.println(e);
             System.exit(1);

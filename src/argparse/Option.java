@@ -7,7 +7,6 @@ public class Option {
         private String shortName;
         private String longName;
         private boolean hasArg;
-        private String defaultValue;
         private String delimiter;
         private Class type;
         private Class subType;
@@ -30,11 +29,6 @@ public class Option {
 
         public Builder hasArg(boolean hasArg) {
             this.hasArg = hasArg;
-            return this;
-        }
-
-        public Builder defaultValue(String defaultValue) {
-            this.defaultValue = defaultValue;
             return this;
         }
 
@@ -70,7 +64,6 @@ public class Option {
     private String shortName;
     private String longName;
     private boolean hasArg;
-    private String defaultValue;
     private String delimiter;
     private Class type;
     private Class subType;
@@ -81,38 +74,32 @@ public class Option {
         this.shortName = builder.shortName;
         this.longName = builder.longName;
         this.hasArg = builder.hasArg;
-        this.defaultValue = builder.defaultValue;
         this.delimiter = builder.delimiter;
         this.type = builder.type;
         this.subType = builder.subType;
         this.description = builder.description;
     }
 
-    public Option(String shortName, String longName, boolean hasArg, String defaultValue, String delimiter, Class type, Class subType, String description) {
+    public Option(String shortName, String longName, boolean hasArg, String delimiter, Class type, Class subType, String description) {
         this.shortName = shortName;
         this.longName = longName;
         this.hasArg = hasArg;
-        this.defaultValue = defaultValue;
         this.delimiter = delimiter;
         this.type = type;
         this.subType = subType;
         this.description = description;
     }
 
-    public Option(String shortName, String longName, boolean hasArg, String delimiter, Class type, Class subType, String description) {
-        this(shortName, longName, hasArg, null, delimiter, type, subType, description);
-    }
-
     public Option(String shortName, String longName, boolean hasArg, String delimiter, Class type, String description) {
-        this(shortName, longName, hasArg, null, delimiter, type, String.class, description);
+        this(shortName, longName, hasArg, delimiter, type, String.class, description);
     }
 
     public Option(String shortName, String longName, boolean hasArg, Class type, String description) {
-        this(shortName, longName, hasArg, null, null, type, null, description);
+        this(shortName, longName, hasArg, null, type, null, description);
     }
 
     public Option(String shortName, String longName, boolean hasArg, String description) {
-        this(shortName, longName, hasArg, null, null, String.class, null, description);
+        this(shortName, longName, hasArg, null, String.class, null, description);
     }
 
     public void setShortName(String shortName) {
@@ -137,14 +124,6 @@ public class Option {
 
     public boolean hasArg() {
         return hasArg;
-    }
-
-    public void setDefaultValue(String defaultValue) {
-        this.defaultValue = defaultValue;
-    }
-
-    public String getDefaultValue() {
-        return defaultValue;
     }
 
     public void setDelimiter(String delimiter) {
