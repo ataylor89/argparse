@@ -62,7 +62,7 @@ public class Rot88 {
             encrypt = result.getParsedOptionValue("encrypt", false);
             decrypt = result.getParsedOptionValue("decrypt", false);
         } catch (ParseException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             System.exit(1);
         }
         if (message == null && inputfile == null) {
