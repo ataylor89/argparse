@@ -150,3 +150,8 @@ Saturday, October 31, 2026
     Unknown option: abcdefghijklmnopqrstuvwxyz
 
     # Voilà! The exception handling works as expected
+
+Saturday, October 31, 2026
+
+* I renamed BuilderPattern to BuilderExample
+* I think this is a better name, because it's an example of using the builder pattern to build an option
