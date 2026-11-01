@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.util.Base64;
 import java.util.List;
 
-public class BuilderPattern {
+public class BuilderExample {
 
     public static void main(String[] args) {
         // We initialize our local variables to null (cf. Rot13.java)
@@ -96,7 +96,7 @@ public class BuilderPattern {
             System.exit(1);
         }
         if (help) {
-            System.out.println("usage: java BuilderPattern [-h] [-v] [-i inputfile] [-k KEY] [-o OUTPUTFILE] [-e] [-d] [-b64] [message]");
+            System.out.println("usage: java BuilderExample [-h] [-v] [-i inputfile] [-k KEY] [-o OUTPUTFILE] [-e] [-d] [-b64] [message]");
             System.out.println("\nThe purpose of this file is to test the builder feature in Option.java");
             System.exit(0);
         }
