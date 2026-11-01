@@ -42,11 +42,11 @@ package argparse;
  *
  * Unchecked exceptions inherit from the java.lang.RuntimeException base class.
  *
- * If a line of code could possibly throw a checked exception, then it has to be handled in a try-catch block. [2]
+ * If a line of code could possibly throw a checked exception, then it has to be enclosed by one of the following: (1) a try statement that catches the exception or (2) a method that specifies that it can throw the exception. [2]
  *
  * (The compiler enforces it.)
  *
- * If a line of code could possibly throw an unchecked exception, but not a checked exception, then it does not have to be handled in a try-catch block (but you can still wrap it in a try-catch block, if you want).
+ * If a line of code could possibly throw an unchecked exception, but not a checked exception, then the Catch or Specify rule, stated previously, does not apply, although the programmer can still enclose the code in a try-catch block if they want.
  *
  * Furthermore, if a method throws a checked exception, then it has to indicate this in the method signature.
  *
@@ -93,7 +93,7 @@ package argparse;
  *
  * [1] Opening a file can raise an exception in many circumstances, including: (1) the file is not found (2) the user or program does not have the needed permissions to open the file, read from the file, or write to the file
  *
- * [2] It's actually a little more nuanced than this. If a line of code might possibly throw a checked exception, then it must be enclosed in a try-catch block, or the calling method has to throw the checked exception, so that it can be handled by a try-catch block further up the call stack. This is commonly referred to as the Catch or Specify Requirement. I wanted to clarify this in a footnote, as opposed to editing the original text, so that I don't interrupt the flow of my explanation.
+ * [2] Cf. Catch or Specify Requirement (https://docs.oracle.com/javase/tutorial/essential/exceptions/catchOrDeclare.html)
  */
 public class ParseException extends Exception {
 
