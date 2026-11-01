@@ -69,8 +69,8 @@ public class Types {
         List<T> result = new ArrayList<>();
         try {
             String[] tokens = arg.split(delimiter);
+            Method method = type.getMethod("valueOf", String.class);
             for (String token : tokens) {
-                Method method = type.getMethod("valueOf", String.class);
                 result.add(type.cast(method.invoke(null, token)));
             }
         } catch (Exception e) {
