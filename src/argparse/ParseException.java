@@ -91,7 +91,7 @@ package argparse;
  *
  * Footnotes:
  *
- * [1] Opening a file can raise an exception in many circumstances, including: (1) the file is not found (2) the user or program does not have the needed permissions to open the file, read from the file, or write to the file
+ * [1] Opening a file can raise an exception in many circumstances, including: (1) the file is not found (2) the user or program does not have the permissions needed to open the file, read from the file, or write to the file
  *
  * [2] Cf. Catch or Specify Requirement (https://docs.oracle.com/javase/tutorial/essential/exceptions/catchOrDeclare.html)
  */
