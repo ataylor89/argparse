@@ -24,7 +24,7 @@ package argparse;
  *                - java.lang.RuntimeException (unchecked exceptions)
  *                - All other subclasses (checked exceptions)
  * 
- * You can see that exceptions are, more specifically, a subclass of runtime errors.
+ * You can see that exceptions are, more specifically, a subset of runtime errors.
  *
  * Exceptions are runtime errors that you can expect a program to recover from.
  *
