@@ -32,11 +32,11 @@ public class ParseResult {
         return options;
     }
 
-    public String getPositionalArg(int index) throws ParseException {
-        if (index >= positionalArgs.size()) {
-            throw new ParseException("Missing a positional argument");
+    public String getPositionalArg(int index) {
+        if (index < positionalArgs.size()) {
+            return positionalArgs.get(index);
         }
-        return positionalArgs.get(index);
+        return null;
     }
 
     public Option getOption(String name) throws ParseException {
