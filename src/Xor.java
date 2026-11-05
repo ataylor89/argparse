@@ -36,9 +36,9 @@ public class Xor {
             ArgumentParser parser = new ArgumentParser();
             Options options = new Options();
             options.addOption("k", "key", true, "Key");
-            options.addOption("i", "inputfile", true, "Path to input file");
+            options.addOption("if", "inputfile", true, "Path to input file");
             options.addOption("kf", "keyfile", true, "Path to keyfile");
-            options.addOption("o", "outputfile", true, "Path to output file");
+            options.addOption("of", "outputfile", true, "Path to output file");
             options.addOption("b64", "base64", false, Boolean.class, "Base64 encoding/decoding");
             options.addOption("e", "encrypt", false, Boolean.class, "Encrypt");
             options.addOption("d", "decrypt", false, Boolean.class, "Decrypt");
