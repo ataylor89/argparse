@@ -155,3 +155,46 @@ Saturday, October 31, 2026
 
 * I renamed BuilderPattern to BuilderExample
 * I think this is a better name, because it's an example of using the builder pattern to build an option
+
+Wednesday, November 4, 2026 - Thursday, November 5, 2026
+
+* I added Xor.java
+* Xor.java is an XOR cipher... it uses the XOR operation to encrypt or decrypt a message
+* It was used over 100 years ago, in 1917, by Gilbert Vernam
+* It is based on the fact that xor(xor(m)) = m, just like rot13(rot13(m)) = m
+* XOR is a symmetric key algorithm, which means the encryption key and the decryption key are the same
+* XOR is a relatively secure algorithm
+* XOR is secure, so long as your key is secret
+* But if someone discovers your key, then the algorithm is not secure
+* For this reason, people study the problem of how do you share an xor key in a secure way
+* The RSA algorithm is attractive because, if your public key is discovered, then cracking the message is still difficult
+* But if you use the XOR algorithm, and your key is discovered, then cracking the message is trivial
+* Thus XOR depends on keeping the key a secret
+* Example usage:
+
+    # cd into the src directory
+    % cd ~/Github/argparse/src
+
+    # Compile the Java source code into bytecode
+    % javac Xor.java argparse/*.java
+
+    # Encrypt a message using the XOR algorithm, and use "testkey" as our secret key
+    # Also, use base64 encoding, just so that the output is easy to read, copy, and paste
+    % java Xor "hello world today is thursday november 5 2026" -k "testkey" -e -b64
+    HAAfGARFDhsXHxBLERYQBApUAhZZAA0GBhgBGA1FHRsdABQWAAFUXkVLRFdF
+
+    # Encrypt a message using the XOR algorithm, use "testkey" as our secret key, and write the output to cipher.txt
+    # Once again, use base64 encoding
+    % java Xor "hello world today is thursday november 5 2026" -k "testkey" -e -b64 -of cipher.txt
+
+    # Decrypt a message using the XOR algorithm, use "testkey" as our secret key, and read the input from cipher.txt
+    # Also, use base64 decoding, because the encrypted message is encoded in base64
+    % java Xor -if cipher.txt -k "testkey" -d -b64
+    hello world today is thursday november 5 2026
+
+    # Voilá! It works like a charm :)
+    # We have actually created a secure, professional cryptography algorithm
+    # This algorithm was used by Gilbert Vernam in 1917
+    # It's a famous algorithm, and it has been in use for over one hundred years
+    # The one caveat, with this algorithm, is that you have to keep your key a secret
+    # Part of the research into the XOR algorithm, is how to share your key with your intended recipient, in a secure way
