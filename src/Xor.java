@@ -27,6 +27,7 @@ public class Xor {
         String message = null;
         String key = null;
         String inputfile = null;
+        String keyfile = null;
         String outputfile = null;
         Boolean base64 = null;
         Boolean encrypt = null;
@@ -36,6 +37,7 @@ public class Xor {
             Options options = new Options();
             options.addOption("k", "key", true, "Key");
             options.addOption("i", "inputfile", true, "Path to input file");
+            options.addOption("kf", "keyfile", true, "Path to keyfile");
             options.addOption("o", "outputfile", true, "Path to output file");
             options.addOption("b64", "base64", false, Boolean.class, "Base64 encoding/decoding");
             options.addOption("e", "encrypt", false, Boolean.class, "Encrypt");
@@ -44,6 +46,7 @@ public class Xor {
             message = result.getPositionalArg(0);
             key = result.getParsedOptionValue("key");
             inputfile = result.getParsedOptionValue("inputfile");
+            keyfile = result.getParsedOptionValue("keyfile");
             outputfile = result.getParsedOptionValue("outputfile");
             base64 = result.getParsedOptionValue("base64", false);
             encrypt = result.getParsedOptionValue("encrypt", false);
@@ -56,14 +59,23 @@ public class Xor {
             System.out.println("A message or an input file is required.");
             System.exit(1);
         }
-        if (key == null) {
-            System.out.println("A key is required.");
+        if (key == null && keyfile == null) {
+            System.out.println("A key or a keyfile is required.");
             System.exit(1);
         }
         if (message == null && inputfile != null) {
             Path path = Path.of(inputfile);
             try {
                 message = Files.readString(path);
+            } catch (IOException e) {
+                System.out.println(e);
+                System.exit(1);
+            }
+        }
+        if (key == null && keyfile != null) {
+            Path path = Path.of(inputfile);
+            try {
+                key = Files.readString(path);
             } catch (IOException e) {
                 System.out.println(e);
                 System.exit(1);
