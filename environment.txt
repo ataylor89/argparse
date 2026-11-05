@@ -4,7 +4,7 @@ In case you're wondering, you can access vim and Terminal by doing the following
 
 (Part 1 - Intro)
 1. As a matter of terminology, the Dock is at the bottom of your screen, and the menu bar is at the top
-2. The Apple log is at the top left corner of the menu bar
+2. The Apple logo is at the top left corner of the menu bar
 3. I have a weather icon, a keyboard input icon (I use Unicode Hex Input), a WiFi icon, a day&time icon, etc, on the right hand side of my menu bar
 4. The application that's currently in focus (which for me right now is Terminal) is the second menu icon, on the left hand side of the menu bar... it's the menu icon to the right of the Apple logo
 5. I use Unicode Hex Input so that I can type characters like π using a key sequence
