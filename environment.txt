@@ -1,0 +1,81 @@
+I do most (or all) of my software development in vim, in Terminal, on macOS.
+
+In case you're wondering, you can access vim and Terminal by doing the following:
+
+(Part 1 - Intro)
+1. As a matter of terminology, the Dock is at the bottom of your screen, and the menu bar is at the top
+2. The Apple log is at the top left corner of the menu bar
+3. I have a weather icon, a keyboard input icon (I use Unicode Hex Input), a WiFi icon, a day&time icon, etc, on the right hand side of my menu bar
+4. The application that's currently in focus (which for me right now is Terminal) is the second menu icon, on the left hand side of the menu bar... it's the menu icon to the right of the Apple logo
+5. I use Unicode Hex Input so that I can type characters like π using a key sequence
+6. I use the key sequence option+03c0 to type the character π
+7. Now, let's begin
+
+(Part 2 - Finder and Terminal)
+8. I start by opening Finder, which is the leftmost icon in my Dock, at the bottom of my screen
+9. I click on Applications, I expand Utilities, and then I double click on Terminal
+10. The application name, Terminal, is a reference to the video terminals of the 1960s and 1970s (like VT100)
+11. I like to say that a basic computer consists of a processor, memory, and a terminal
+12. Now that you're in Terminal, you can choose to maximize your screen, or keep it as it is
+13. In the menu bar at the top of the screen, you can click on Terminal, Settings, and then choose a color theme
+14. I like the Ocean theme, for many reasons (one, for the colors, two, for the name)
+15. You can type the command "java --version" in Terminal to see if Java is installed, and if so, what version
+16. You can type the command "python --version" in Terminal to see if Python is installed, and if so, what version
+
+(Part 3 - vim)
+17. You can create the file ~/.vimrc to configure vim
+18. The word "vimrc" stands for "vim run configurations" or "vim run commands"
+19. The vimrc file contains commands (or configurations) that get executed by vim upon startup
+20. This is what my ~/.vimrc file looks like, at the present moment
+
+    % cat ~/.vimrc
+    set tabstop=4
+    set shiftwidth=4
+    set expandtab
+    set nu
+    syntax on
+
+21. You can see that I define a tab as four spaces, I add line numbering, and I add syntax highlighting
+22. Now you can open vim by typing the command "vim" in Terminal
+
+    % vim
+
+23. I get a screen that says VIM - Vi IMproved by Bram Moolenaar et al.
+24. vim has seven basic modes: insert mode, normal mode, command-line mode, visual mode, select mode, ex mode, and terminal-job mode
+25. I regularly use insert mode, normal mode, command-line mode, and visual mode
+26. Ex mode is a lot like command-line mode, but after running a command, you stay in Ex mode
+27. But honestly, I mostly use 4 out of 7 modes (insert, normal, command-line, visual)
+28. I use insert mode to write source code and to insert text into a document
+29. I use normal mode to scroll and edit a file
+30. I use command-line mode to execute commands, like write-to-file or search-and-replace or find-occurrences-of
+31. I sometimes use visual mode to copy/paste a block of text... but I also use command-line for this purpose
+32. You can get into normal mode by typing the escape key or by typing the key sequence control+c
+33. You can get into insert mode, from normal mode, by typing the keys "i" or "a" on your keyboard
+34. You can get into command-line mode, from normal mode, by typing a colon (shift plus semicolon)
+35. You can get into visual mode, from normal mode, by typing the key "v" on your keyboard
+36. You can search the help docs, on a search term, with the command ":help <search-term>"
+37. An example would be this...
+38. First, I exit insert mode and switch to normal mode by typing the escape key
+39. Second, I type a colon (hold down shift and then type the semicolon key)
+40. Third, I type the command ":help vim-modes-intro"
+41. I use my up-and-down arrow keys to scroll through the document (an intro on vim modes) while in normal mode
+42. Then I type the command ":q" in normal mode to exit the document and return to my editor screen
+
+(Part 4 - Summary)
+43. It takes a long time to learn vim, but the investment is worth it
+44. By analogy, it takes a long time to learn a language like Java or Python, but the investment is worth it
+45. vim is a text editor that comes pre-installed with macOS
+46. The man page for vim (which you can bring up by typing the command "man vim" in Terminal) affectionately calls it a programmer's text editor
+47. vim is heavily based on the keyboard (as opposed to IDEs, which rely a lot on the mouse or track pad)
+48. You can spend an hour using vim... without ever using the mouse or trackpad :)
+49. I do almost all of my software development in vim, in Terminal, on my MacBook
+50. I thought it would help to describe my development environment
+
+(Part 5 - Development Environment)
+DEV ENVIRONMENT:
+1. MacBook Pro
+2. Terminal (Finder->Applications->Utilities->Terminal)
+3. vim (comes pre-installed with macOS, just like Terminal)
+4. I use the ocean theme in vim
+5. I configure vim in my ~/.vimrc file, the contents of which I reproduced above
+6. I configure zsh in my ~/.zprofile file, and I might talk about this at a later point in time
