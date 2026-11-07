@@ -119,7 +119,7 @@ public class Primegen {
          *
          * The Stream API, introduced in Java 8, is really useful, and I'll link to some tutorials on it in resources.md.
          *
-         * It's all based on the java.util.Stream class.
+         * It's all based on the java.util.stream.Stream interface.
          *
          * The List interface, and Collection classes in general, have a stream method,
          * to return a Stream of the same type as the List (or Collection).
