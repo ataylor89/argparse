@@ -198,3 +198,85 @@ Wednesday, November 4, 2026 - Thursday, November 5, 2026
     # It's a famous algorithm, and it has been in use for over one hundred years
     # The one caveat, with this algorithm, is that you have to keep your key a secret
     # Part of the research into the XOR algorithm, is how to share your key with your intended recipient, in a secure way
+
+Friday, November 6, 2026
+
+* I added Primegen.java
+* Primegen.java is a program (and library) that generates prime numbers
+* You can call the Primegen#generate(int) method, and pass it an integer n, to generate the first n prime numbers
+* Behind the scenes, it uses the Primegen#sieve(int) method, to generate a sieve of a specified size
+* The sieve is used to separate prime numbers from composite numbers
+* The algorithm for creating the sieve is often referred to as the Sieve of Eratosthenes
+* In my opinion, a sieve is a filter
+* A filter is a device that separates an input stream into two categories: what gets filtered in and what gets filtered out
+* The boolean array, named sieve, has true and false values, which are used to indicate what's prime and composite
+* For example, sieve[2] is true, because 2 is a prime number, but sieve[4] is false, because 4 is not a prime number
+* The numbers 0 and 1 are neither composite nor prime, so I set sieve[0] and sieve[1] to false
+* To give some more examples, sieve[3] is true, because 3 is a prime number, and sieve[10] is false, because 10 is composite
+* Example usage:
+
+    # cd into the src directory
+    % cd ~/Github/argparse/src
+
+    # Compile the Java source code into bytecode
+    % javac Primegen.java argparse/*.java
+
+    # Generate the first 10 prime numbers
+    % java Primegen 10
+    2 3 5 7 11 13 17 19 23 29
+
+    # Generate the first 100 prime numbers
+    % java Primegen 100
+    2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97 101 103 107 109 113 127 131 137 139 149 151 157 163 167 173 179 181 191 193 197 199 211 223 227 229 233 239 241 251 257 263 269 271 277 281 283 293 307 311 313 317 331 337 347 349 353 359 367 373 379 383 389 397 401 409 419 421 431 433 439 443 449 457 461 463 467 479 487 491 499 503 509 521 523 541
+
+    # Generate the first 10 prime numbers, and write the output to a file
+    % java Primegen 10 -o primes.txt
+
+    # Inspect primes.txt
+    % cat output.txt
+    2 3 5 7 11 13 17 19 23 29
+
+    # After a little testing, it seems to work :)
+
+* Final remarks:
+
+I'll be using Primegen.java to generate primes for my implementation of the RSA algorithm.
+
+The RSA algorithm is based on prime numbers.
+
+In the RSA algorithm, we choose two prime numbers, p and q, that satisfy the following requirements:
+
+(1) p and q are distinct prime numbers
+(2) p and q are large enough that their product is difficult to factor
+
+We use the variable n to denote the product of p and q.
+
+In other words, n = p * q.
+
+The number n is a semiprime. A semiprime is the product of two prime numbers.
+
+The number n gets used as the modulus in the formula c = m^e (mod n).
+
+In the formula, above, m is the code point of a Unicode character, e is the encryption exponent, n is the modulus, and c is the cipher.
+
+The formula for encrypting a character of text is c = m^e (mod n).
+
+The formula for decrypting a cipher is m = c^d (mod n).
+
+In the second formula, involving d, the variable d is the decryption exponent, c is the cipher, n is the modulus, and m is the code point of the original character.
+
+It so happens that m = (m^e)^d (mod n).
+
+This is actually a consequence of Euler's totient theorem.
+
+The encryption and decryption exponents, e and d, are chosen to satisfy the property that m = (m^e)^d (mod n).
+
+The public key is the tuple (n, e), in which n is the modulus and e is the encryption exponent.
+
+The private key is the tuple (n, d), in which n is the modulus and d is the decryption exponent.
+
+To make RSA more secure, we can make the public key a list of (n, e) tuples, similar to what we do in AddSubtract2.
+
+Likewise, we can make the private key a list of (n, d) tuples, similar to what we do in AddSubtract2.
+
+The algorithm for generating the n, e, and d values is described in the paper "A Method for Obtaining Digital Signatures and Public-Key Cryptosystems" by R.L. Rivest, A. Shamir, and L. Adleman, published in 1978.
