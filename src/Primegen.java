@@ -17,8 +17,8 @@ public class Primegen {
     
     public Primegen() {}
 
-    public long[] generate(int count) {
-        long[] primes = new long[count];
+    public int[] generate(int count) {
+        int[] primes = new int[count];
         double n = (double) count;
         // This is a formula for calculating an upper bound for the nth prime
         // I'll be crossing my fingers every time I run this program, hoping that my upper bound will work :)
@@ -86,7 +86,7 @@ public class Primegen {
             System.exit(1);
         }
         Primegen primegen = new Primegen();
-        long[] primes = primegen.generate(count);
+        int[] primes = primegen.generate(count);
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < primes.length; i++) {
             builder.append(primes[i]);
