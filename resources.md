@@ -36,3 +36,15 @@ I'd like to keep a running list of resources and reference materials in the sect
     - I use reflection, in Types.java, to invoke the valueOf method on a generic type
     - I don't know, at compiletime, if the type will be String, Integer, Double, or Boolean
     - I solve this problem by making use of reflection, class literals, and generics
+8. [Lesson: Aggregate Operations](https://docs.oracle.com/javase/tutorial/collections/streams/index.html)
+    - This is a tutorial on the Streams API, which was introduced in Java 8
+    - This tutorial covers streams, pipelines, and aggregate operations
+    - It defines a stream as a "sequence of elements"
+    - It defines a pipeline as a "sequence of aggregate operations"
+    - The Stream API, in my opinion, is mostly based on the java.util.stream.Stream interface
+9. [Processing Data with Java SE 8 Streams, Part 1](https://www.oracle.com/technical-resources/articles/java/ma14-java-se-8-streams.html)
+    - This is a very instructive article on streams
+    - The author, Raoul-Gabriel Urma, defines a stream as a "sequence of elements from a source that supports aggregate operations"
+    - He goes on to explain what a sequence of elements is, what a source is, and what an aggregate operation is
+    - In Primegen.java, I end up calling the Stream#map and Stream#collect methods, which are examples of aggregate operations
+    - It's worth pointing out that I first create a Stream from an ArrayList, before calling Stream#map and Stream#collect
