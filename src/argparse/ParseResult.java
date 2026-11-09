@@ -52,6 +52,31 @@ public class ParseResult {
         return getOptionValue(name, null);
     }
 
+    /*
+     * This is a generic method, which I learned about by reading the Java tutorials on generics.
+     *
+     * As far as I know, there are two use cases for generics:
+     *
+     * (1) Generic types (generic classes and generic interfaces, which have one or more type parameters)
+     * (2) Generic methods (which have one or more type parameters)
+     *
+     * The rule of thumb is that, to use a generic type or generic method, you pass it one or more type arguments.
+     *
+     * When you use a generic class or a generic interface, you pass it a type argument as soon as you declare
+     * a variable of that type. For example, in the statement "List<Integer> primes", you pass the generic List class
+     * a type argument as soon as you declare a variable of that type.
+     *
+     * When you use a generic method, you often pass it a type argument when you invoke the method.
+     * For example, when the generic method Types.parse is called, we pass it a type argument. Same with Types.parseList.
+     *
+     * But sometimes, the type argument gets passed further on downstream.
+     * For example, the method ParseResult#getParsedOptionValue(String), which accepts one argument, a String,
+     * does not accept a type argument. Instead, it passes a type argument to Types.parse or Types.parseList.
+     *
+     * It took me a long time to wrap my head around the subject :)
+     * I think I was able to finally understand it - to a degree - by reading the Java tutorials on generics,
+     * and by writing my own generic types or generic methods to practice what I learned.
+     */
     @SuppressWarnings("unchecked")
     public <T> T getParsedOptionValue(String name, T defaultValue) throws ParseException {
         Option option = getOption(name);
