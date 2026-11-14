@@ -25,4 +25,5 @@ Progress
     - I'm using the Unicode Hex Input keyboard on my MacBook Pro
     - I used the key sequence option+2713 to create a ✓
 2. ✓
-3. In progress
+3. ✓
+4. In progress
