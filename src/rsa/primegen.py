@@ -29,6 +29,7 @@ def sieve(size):
 def main():
     parser = argparse.ArgumentParser(prog='primegen.py', description='Generate primes')
     parser.add_argument('count', type=float)
+    parser.add_argument('-o', '--outputfile', type=str)
     parser.add_argument('-t', '--time', action='store_true')
     args = parser.parse_args()
     try:
@@ -41,11 +42,15 @@ def main():
         st = time.time()
         primes = generate(n)
         te = time.time() - st
-        print(primes)
-        print('Generated %d primes in %s seconds' %(n, te))
     else:
         primes = generate(n)
+    if args.outputfile:
+        with open(args.outputfile, 'w') as file:
+            file.write(str(primes))
+    else:
         print(primes)
+    if args.time:
+        print('Generated %d primes in %s seconds' %(n, te))
 
 if __name__ == '__main__':
     main()
