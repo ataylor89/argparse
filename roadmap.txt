@@ -6,7 +6,7 @@ Saturday, November 14, 2026
 
 Steps for implementing the RSA algorithm
 ----------------------------------------
-1. Create a new branch in my [argparse](https://github.com/ataylor89/argparse) repository, called "rsa" or "rsa-algorithm"
+1. Create a new branch in my argparse repository, called "rsa" or "rsa-algorithm"
 2. Create a new folder, argparse/src/rsa, which will contain the Python implementation
 3. Write the first file, argparse/src/rsa/primegen.py, which will generate prime numbers on demand
 4. Write the second file, argparse/src/rsa/keygen.py, which will generate a key pair (a public key and a private key) on demand
