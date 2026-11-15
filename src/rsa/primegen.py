@@ -12,6 +12,13 @@ def generate(n):
     primes = [index for index, value in enumerate(arr) if value is True]
     return primes[0:n]
 
+def generate_up_to(n):
+    if not isinstance(n, int) or n < 1:
+        raise ValueError('The generate method accepts a positive integer')
+    arr = sieve(n+1)
+    primes = [index for index, value in enumerate(arr) if value is True]
+    return primes[0:n]
+
 def sieve(size):
     if not isinstance(size, int) or size < 2:
         raise ValueError('The sieve method accepts a positive integer greater than one')
