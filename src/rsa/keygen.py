@@ -97,9 +97,10 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
                 print('Adding key (n=%d, e=%d, d=%d)' %(n, e, d))
             key.append((n, e, d))
             counter += 1
+
         # If it doesn't work, print an error message to stdout
         elif verbose:
-            print(f'The key n={n}, e={e}, d={d} did not pass the test')
+            print(f'The key n={n}, e={e}, d={d} is not valid')
 
     # After the while loop has finished, return the key
     return key
