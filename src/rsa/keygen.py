@@ -4,6 +4,10 @@ import argparse
 import math
 import primegen
 import random
+from settings import default_key_length
+from settings import default_key_path
+from settings import default_lower_bound
+from settings import default_upper_bound
 import time
 import util
 
@@ -121,10 +125,10 @@ def validate(n, e, d):
 
 def main():
     parser = argparse.ArgumentParser(prog='keygen.py', description='Generate a RSA key')
-    parser.add_argument('-kl', '--keylength', type=int, default=3)
-    parser.add_argument('-lb', '--lowerbound', type=float, default=1e3)
-    parser.add_argument('-ub', '--upperbound', type=float, default=1e4)
-    parser.add_argument('-o', '--outputfile', type=str, default='key.txt')
+    parser.add_argument('-kl', '--keylength', type=int, default=default_key_length)
+    parser.add_argument('-lb', '--lowerbound', type=float, default=default_lower_bound)
+    parser.add_argument('-ub', '--upperbound', type=float, default=default_upper_bound)
+    parser.add_argument('-o', '--outputfile', type=str, default=default_key_path)
     parser.add_argument('-v', '--verbose', action='store_true')
     args = parser.parse_args()
     keylength = args.keylength

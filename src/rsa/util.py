@@ -7,3 +7,6 @@ def power_mod_n(base, expo, n):
         base = (base * base) % n
         expo = expo // 2
     return res
+
+def size(num):
+    return (num.bit_length() + 7) // 8
