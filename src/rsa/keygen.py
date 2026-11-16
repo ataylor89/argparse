@@ -47,13 +47,16 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
         if p == q:
             continue
 
+        if verbose:
+            print(f'p = {p}, q = {q}')
+
         # n is a semiprime, which means it's the product of two prime numbers
         # n is the product of p and q
         n = p * q
 
         # If verbose mode is enabled, print the values of n, p, q
         if verbose:
-            print('n = %d, p = %d, q = %d' %(n, p, q))
+            print(f'n = {n}')
 
         # This is a helper variable, and it has two possible values
         # The first possible value is phi = ϕ(n) = (p-1)*(q-1)
@@ -63,7 +66,7 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
 
         # If verbose mode is enabled, print the value of phi
         if verbose:
-            print('phi = %d' %phi)
+            print(f'\u03d5(n) = {phi}')
 
         # This part is a little confusing, but I'll try to make it clear
         # d should be a large, random integer relatively prime to phi
@@ -86,7 +89,7 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
 
         # If verbose mode is enabled, print the value of d
         if verbose:
-            print('d = %d' %d)
+            print(f'd = {d}')
 
         # Now we calculate the value of e
         # e is the multiplicative inverse of d modulo phi
@@ -96,18 +99,18 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
 
         # If verbose mode is enabled, print the value of e
         if verbose:
-            print('e = %d' %d)
+            print(f'e = {e}')
 
         # Before we add (n, e, d) to our key, make sure it works
         if validate(n, e, d):
             if verbose:
-                print('Adding key (n=%d, e=%d, d=%d)' %(n, e, d))
+                print(f'Adding key (n={n}, e={e}, d={d})')
             key.append((n, e, d))
             progress += 1
 
         # If it doesn't work, print an error message to stdout
         elif verbose:
-            print(f'The key n={n}, e={e}, d={d} is not valid')
+            print(f'The key (n={n}, e={e}, d={d}) is not valid')
 
     # After the while loop has finished, return the key
     return key
@@ -145,7 +148,7 @@ def main():
         time_elapsed = time.time() - start_time
         with open(outputfile, 'w') as file:
             for (n, e, d) in key:
-                file.write("n=%d e=%d d=%d\n" %(n, e, d))
+                file.write(f'n={n} e={e} d={d}\n')
         print(f'Generated {outputfile} in {time_elapsed} seconds')
     except Exception as err:
         print(err)
