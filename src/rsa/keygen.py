@@ -17,9 +17,9 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
     if keylength < 1:
         raise ValueError('The key length must be a positive integer')
     if lowerbound < 0:
-        raise ThresholdError('The lower bound must be a nonnegative integer')
+        raise ValueError('The lower bound must be a nonnegative integer')
     if lowerbound > upperbound:
-        raise ThresholdError('The lower bound must be less than or equal to the upper bound')
+        raise ValueError('The lower bound must be less than or equal to the upper bound')
 
     # This is the key that we'll return
     # It holds a list of (n, e, d) tuples
@@ -71,8 +71,8 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
         # Then we'll choose d from our list of choices
         choices = []
         counter = 0
-        max_iterations = 1000
-        startvalue = phi + 1
+        max_iterations = 1e4
+        startvalue = n + 1
         while len(choices) < number_of_choices_for_d:
             if counter > max_iterations:
                 raise RuntimeError('Potential infinite loop when calculating the d value')
