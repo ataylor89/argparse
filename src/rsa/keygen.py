@@ -8,6 +8,7 @@ from settings import default_key_length
 from settings import default_key_path
 from settings import default_lower_bound
 from settings import default_upper_bound
+from settings import number_of_choices_for_d
 import time
 import util
 
@@ -64,22 +65,22 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
 
         # This part is a little confusing, but I'll try to make it clear
         # d should be a large, random integer relatively prime to phi
-        # First we'll create a list of candidate d-values
-        # Then we'll choose d from our list of candidate d-values
-        d_candidates = []
+        # First we'll create a list of choices for d
+        # Then we'll choose d from our list of choices
+        d_choices = []
         d_counter = 0
         max_iterations = 1000
         startvalue = phi + 1
-        while len(d_candidates) < 10:
+        while len(d_choices) < number_of_choices_for_d:
             if d_counter > max_iterations:
                 raise RuntimeError('Potential infinite loop when calculating the d value')
             value = startvalue + d_counter
             if math.gcd(value, phi) == 1:
-                d_candidates.append(value)
+                d_choices.append(value)
             d_counter += 1
 
-        # Here we randomly choose a value from our list of candidates to be our d-value
-        d = random.choice(d_candidates)
+        # Here we randomly choose d from our list of choices
+        d = random.choice(d_choices)
 
         # If verbose mode is enabled, print the value of d
         if verbose:
