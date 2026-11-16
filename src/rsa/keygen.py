@@ -47,6 +47,7 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
         if p == q:
             continue
 
+        # If verbose mode is enabled, print the values of p and q
         if verbose:
             print(f'p = {p}, q = {q}')
 
@@ -54,7 +55,7 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
         # n is the product of p and q
         n = p * q
 
-        # If verbose mode is enabled, print the values of n, p, q
+        # If verbose mode is enabled, print the value of n
         if verbose:
             print(f'n = {n}')
 
