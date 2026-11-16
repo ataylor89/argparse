@@ -31,12 +31,14 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
     # Filter out prime numbers that are less than the lower bound
     primes = [p for p in primes if p > lowerbound]
 
-    # A counter for keeping track of the number of (n, e, d) tuples we calculate
-    # The public key is a list of (n, e) tuples and the private key is a list of (n, d) tuples
-    counter = 0
+    # A variable for keeping track of the number of (n, e, d) tuples we discover
+    # We can think of the full key as a list of (n, e, d) tuples
+    # The public key is a list of (n, e) tuples
+    # The private key is a list of (n, d) tuples
+    progress = 0
 
     # Create a key of the desired length
-    while counter < keylength:
+    while progress < keylength:
         # First, we'll choose two prime numbers, p and q
         p = random.choice(primes)
         q = random.choice(primes)
@@ -67,20 +69,20 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
         # d should be a large, random integer relatively prime to phi
         # First we'll create a list of choices for d
         # Then we'll choose d from our list of choices
-        d_choices = []
-        d_counter = 0
+        choices = []
+        counter = 0
         max_iterations = 1000
         startvalue = phi + 1
-        while len(d_choices) < number_of_choices_for_d:
-            if d_counter > max_iterations:
+        while len(choices) < number_of_choices_for_d:
+            if counter > max_iterations:
                 raise RuntimeError('Potential infinite loop when calculating the d value')
-            value = startvalue + d_counter
+            value = startvalue + counter
             if math.gcd(value, phi) == 1:
-                d_choices.append(value)
-            d_counter += 1
+                choices.append(value)
+            counter += 1
 
         # Here we randomly choose d from our list of choices
-        d = random.choice(d_choices)
+        d = random.choice(choices)
 
         # If verbose mode is enabled, print the value of d
         if verbose:
@@ -101,7 +103,7 @@ def generate(keylength, lowerbound, upperbound, verbose=False):
             if verbose:
                 print('Adding key (n=%d, e=%d, d=%d)' %(n, e, d))
             key.append((n, e, d))
-            counter += 1
+            progress += 1
 
         # If it doesn't work, print an error message to stdout
         elif verbose:
