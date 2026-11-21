@@ -16,10 +16,6 @@ def parse(path):
                         e = value
                     elif name == 'd':
                         d = value
-                    else:
-                        print(f'Error parsing key file at line {linenum}')
-                        print(f'Unrecognized symbol: {name}={value}')
-                        sys.exit(1)
                 key.append((n, e, d))
             except Exception as err:
                 print(f'Error parsing key file at line {linenum}')
