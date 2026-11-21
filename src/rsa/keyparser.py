@@ -17,7 +17,8 @@ def parse(path):
                     elif name == 'd':
                         d = value
                     else:
-                        print(f'Unrecognized symbol at line {linenum}: {name}={value}')
+                        print(f'Error parsing key file at line {linenum}')
+                        print(f'Unrecognized symbol: {name}={value}')
                         sys.exit(1)
                 key.append((n, e, d))
             except Exception as err:
