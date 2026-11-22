@@ -15,6 +15,7 @@ public class Decrypt {
                 command[i+2] = args[i];
             }
             ProcessBuilder pb = new ProcessBuilder(command);
+            pb.environment().put("PYTHONUNBUFFERED", "1");
             pb.redirectErrorStream(true);
             Process process = pb.start();
             BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
