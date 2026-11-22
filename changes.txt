@@ -280,3 +280,158 @@ To make RSA more secure, we can make the public key a list of (n, e) tuples, sim
 Likewise, we can make the private key a list of (n, d) tuples, similar to what we do in AddSubtract2.
 
 The algorithm for generating the n, e, and d values is described in the paper "A Method for Obtaining Digital Signatures and Public-Key Cryptosystems" by R.L. Rivest, A. Shamir, and L. Adleman, published in 1978.
+
+Sunday, November 22, 2026
+
+* I created an open-source implementation of the RSA algorithm, written in Python
+* I put the Python code in src/rsa
+* The files that get used by the user are keygen.py, encrypt.py, and decrypt.py
+* The other files (like primegen.py, util.py, and keyparser.py) are helper files
+* The purpose of keygen.py is to create an RSA key
+* The public key is a list of (n, e) tuples
+* The private key is a list of (n, d) tuples
+* The function for encrypting a character of text is E(m) = m^e (mod n)
+* m is the Unicode code point that corresponds to the character of text (e.g. 97 for 'a')
+* e is the encryption exponent, which we derive from p and q
+* p and q are two large primes that we randomly choose (the larger, the more security)
+* n is a semiprime (a product of two primes) defined as n = p * q
+* The function for decrypting a character of text is D(c) = c^d (mod n)
+* c is the cipher... the output of E(m) for some code point m
+* d is the decryption exponent, which we derive from p and q
+* n is the same in both the encryption function and the decryption function
+* n is often referred to as the "modulus"
+* The RSA algorithm is based on Euler's totient theorem
+* Euler's totient theorem ensures that D(E(m)) = m and E(D(c)) = c
+* In other words, it ensures that (m^e)^d = m (mod n)
+* Example usage #1:
+
+    # cd to the rsa directory
+    % cd ~/Github/argparse/src/rsa
+
+    # Inspect the rsa directory
+    % ls -1 *.py
+    decrypt.py
+    encrypt.py
+    keygen.py
+    keyparser.py
+    primegen.py
+    settings.py
+    util.py
+
+    # Create an RSA key and enable verbose mode
+    % python keygen.py -v
+    p = 4481, q = 1571
+    n = 7039651
+    ϕ(n) = 7033600
+    d = 7039673
+    e = 217737
+    Adding key (n=7039651, e=217737, d=7039673)
+    p = 5659, q = 3613
+    n = 20445967
+    ϕ(n) = 20436696
+    d = 20446157
+    e = 17401757
+    Adding key (n=20445967, e=17401757, d=20446157)
+    p = 9067, q = 5147
+    n = 46667849
+    ϕ(n) = 46653636
+    d = 46668089
+    e = 37654097
+    Adding key (n=46667849, e=37654097, d=46668089)
+    Generated key.txt in 2.369472026824951 seconds
+
+    # Encrypt a message, using our newly created RSA key
+    # It looks for the key in key.txt, by default, if the keyfile is not specified
+    % python encrypt.py "hello world today is sunday"
+    QxPFAExbSgEgBqA6Oz4AfppVAQDgf0zn0gB+mlUAShltOjs+AR8IBQEA4H8f4/IAfppVAGCy9hxtGQBcRfQBAOB/RdqXAF85XwEA4H8gU8gA5xNgAajgww2g9wC2T3YBQZKb
+
+    # Encrypt a message, using key.txt as our key, and write the output to cipher.txt
+    % python encrypt.py "hello world today is sunday" -o cipher.txt
+
+    # Inspect cipher.txt
+    % cat cipher.txt
+    QxPFAExbSgEgBqA6Oz4AfppVAQDgf0zn0gB+mlUAShltOjs+AR8IBQEA4H8f4/IAfppVAGCy9hxtGQBcRfQBAOB/RdqXAF85XwEA4H8gU8gA5xNgAajgww2g9wC2T3YBQZKb
+
+    # Decrypt cipher.txt
+    % python decrypt.py -i cipher.txt
+    hello world today is sunday
+
+    # Voilà! It works :)
+
+* Example usage #2
+
+    # Navigate to the rsa directory
+    % cd ~/Github/argparse/src/rsa
+
+    # Bring up the help menu
+    % python keygen.py -h
+    usage: keygen.py [-h] [-kl KEYLENGTH] [-lb LOWERBOUND] [-ub UPPERBOUND] [-o OUTPUTFILE] [-v]
+
+    Generate a RSA key
+
+    options:
+      -h, --help            show this help message and exit
+      -kl, --keylength KEYLENGTH
+      -lb, --lowerbound LOWERBOUND
+      -ub, --upperbound UPPERBOUND
+      -o, --outputfile OUTPUTFILE
+      -v, --verbose
+
+    # Create an RSA key, of length 5, save to key2.txt, and enable verbose mode
+    % python keygen.py -kl 5 -o key2.txt -v
+    p = 1447, q = 3257
+    n = 4712879
+    ϕ(n) = 4708176
+    d = 4713211
+    e = 1336243
+    Adding key (n=4712879, e=1336243, d=4713211)
+    p = 3343, q = 4861
+    n = 16250323
+    ϕ(n) = 16242120
+    d = 16250477
+    e = 10706933
+    Adding key (n=16250323, e=10706933, d=16250477)
+    p = 1327, q = 5419
+    n = 7191013
+    ϕ(n) = 7184268
+    d = 7191245
+    e = 3571025
+    Adding key (n=7191013, e=3571025, d=7191245)
+    p = 6899, q = 3739
+    n = 25795361
+    ϕ(n) = 25784724
+    d = 25795507
+    e = 7802611
+    Adding key (n=25795361, e=7802611, d=25795507)
+    p = 5527, q = 8069
+    n = 44597363
+    ϕ(n) = 44583768
+    d = 44597405
+    e = 15581597
+    Adding key (n=44597363, e=15581597, d=44597405)
+    Generated key2.txt in 1.6704587936401367 seconds
+
+    # Encrypt a message using key2.txt as our key
+    % python encrypt.py "hello world it's the holiday season" -k key2.txt
+    Gk8M2DmlEH+iAVg/SwG5gkovQ3BW8sBVchAAhV/WAblyrBV9AnAdmDfQZwFP5ukBcVL0HIyqcB2YLwo4APAfvAAM7BAvQ3CeJ7xVchABWD9LATyH3hV9AmmH5RxhJwCOHqMBiiEWNt8waYflSsZrAUqlMAG0kvw=
+
+    # Encrypt a message using key2.txt as our key, and write to cipher2.txt
+    % python encrypt.py "hello world it's the holiday season" -k key2.txt -o cipher2.txt
+
+    # Inspect cipher2.txt
+    % cat cipher2.txt
+    Gk8M2DmlEH+iAVg/SwG5gkovQ3BW8sBVchAAhV/WAblyrBV9AnAdmDfQZwFP5ukBcVL0HIyqcB2YLwo4APAfvAAM7BAvQ3CeJ7xVchABWD9LATyH3hV9AmmH5RxhJwCOHqMBiiEWNt8waYflSsZrAUqlMAG0kvw=
+
+    # Decrypt cipher2.txt
+    % python decrypt.py -i cipher2.txt -k key2.txt
+    hello world it's the holiday season
+
+    # Once again, it works.
+    # In the first example, we used the default file path for our key file (key.txt)
+    # In the second example, we used a custom file path for our key file (key2.txt)
+
+* I think this is enough for one entry in my changelog
+* In the next entry, I'll talk about the Java bindings
+* src/Keygen.java is a Java binding for src/rsa/keygen.py
+* src/Encrypt.java is a Java binding for src/rsa/encrypt.py
+* src/Decrypt.java is a Java binding for src/rsa/decrypt.py
