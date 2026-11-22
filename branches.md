@@ -50,6 +50,8 @@ Saturday, October 31, 2026
 * Implemented a simpler way to set an option's default value
 * See [changes.txt](https://github.com/ataylor89/argparse/blob/parse-exception/changes.txt)
 
+Sunday, November 22, 2026
+
 [rsa-algorithm](https://github.com/ataylor89/argparse/tree/rsa-algorithm)
 
 * Created an open-source implementation of the RSA algorithm, in Python
