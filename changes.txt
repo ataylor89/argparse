@@ -494,3 +494,11 @@ Sunday, November 22, 2026
 * You might notice that the Java binding does not get the Python program's output in real-time
 * It gets the Python program's output all at once, after the Python program finishes running
 * I might look into this, when I have time, and see if it can be fixed
+
+Sunday, November 22, 2026
+
+* I was able to fix the problem I referred to, above
+* I set the PYTHONUNBUFFERED environment variable to 1, and it fixed the problem
+* 1 is often used as a synonym for "true"
+* Conversely, 0 is often used as a synonym for "false"
+* Now I can see the Python output appear in my Java binding in real-time
