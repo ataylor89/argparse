@@ -49,3 +49,9 @@ Saturday, October 31, 2026
 * Created a new class, ParseException, and implemented uniform exception handling
 * Implemented a simpler way to set an option's default value
 * See [changes.txt](https://github.com/ataylor89/argparse/blob/parse-exception/changes.txt)
+
+[rsa-algorithm](https://github.com/ataylor89/argparse/tree/rsa-algorithm)
+
+* Created an open-source implementation of the RSA algorithm, in Python
+* Created Java bindings for the Python programs (Keygen.java, Encrypt.java, Decrypt.java)
+* See [changes.txt](https://github.com/ataylor89/argparse/blob/rsa-algorithm/changes.txt)
