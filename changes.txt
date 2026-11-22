@@ -435,3 +435,62 @@ Sunday, November 22, 2026
 * src/Keygen.java is a Java binding for src/rsa/keygen.py
 * src/Encrypt.java is a Java binding for src/rsa/encrypt.py
 * src/Decrypt.java is a Java binding for src/rsa/decrypt.py
+
+Sunday, November 22, 2026
+
+* I created Java bindings for my RSA programs
+* A binding is a program that interfaces with a program written in another language
+* src/Keygen.java is a Java binding for src/rsa/keygen.py
+* src/Encrypt.java is a Java binding for src/rsa/encrypt.py
+* src/Decrypt.java is a Java binding for src/rsa/decrypt.py
+* Example usage:
+
+    # cd into src directory
+    % cd ~/Github/argparse/src
+
+    # Compile Java source code into bytecode
+    % javac *.java argparse/*.java
+
+    # Create an RSA key
+    % java Keygen -v
+    p = 5927, q = 6133
+    n = 36350291
+    ϕ(n) = 36338232
+    d = 36350633
+    e = 26026625
+    Adding key (n=36350291, e=26026625, d=36350633)
+    p = 5381, q = 4177
+    n = 22476437
+    ϕ(n) = 22466880
+    d = 22476751
+    e = 10351471
+    Adding key (n=22476437, e=10351471, d=22476751)
+    p = 8147, q = 6857
+    n = 55863979
+    ϕ(n) = 55848976
+    d = 55864005
+    e = 230397
+    Adding key (n=55863979, e=230397, d=55864005)
+    Generated key.txt in 3.7502431869506836 seconds
+
+    # Encrypt a message using our newly created key, key.txt
+    % java Encrypt "hello world it is sunday 11/22/2026"
+    APfHqQAmYmMAIzKXAU3NVwDRkskB5mxIAVtV+wDRkskB0nN6AU3NVwEyjV8B5mxIACq1zQBqFxYB5mxIACq1zQDPjroB5mxIAQLw3AAcBtgC6d8KAW9vQQBqsEQBpogrAA/DxAAaaXcBY7eoAKRaugC7gLUBpPk0AKRaugC7gLUBtEBJAQb2ngDVCLc=
+
+    # Encrypt a message using key.txt and write to cipher.txt
+    % java Encrypt "hello world it is sunday 11/22/2026" -o cipher.txt
+
+    # Inspect cipher.txt
+    % cat cipher.txt
+    APfHqQAmYmMAIzKXAU3NVwDRkskB5mxIAVtV+wDRkskB0nN6AU3NVwEyjV8B5mxIACq1zQBqFxYB5mxIACq1zQDPjroB5mxIAQLw3AAcBtgC6d8KAW9vQQBqsEQBpogrAA/DxAAaaXcBY7eoAKRaugC7gLUBpPk0AKRaugC7gLUBtEBJAQb2ngDVCLc=
+
+    # Decrypt cipher.txt
+    % java Decrypt -i cipher.txt
+    hello world it is sunday 11/22/2026
+
+    # It works! :)
+
+* In summary, we created Java bindings for our Python programs
+* You might notice that the Java binding does not get the Python program's output in real-time
+* It gets the Python program's output all at once, after the Python program finishes running
+* I might look into this, when I have time, and see if it can be fixed
